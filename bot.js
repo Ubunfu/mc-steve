@@ -11,7 +11,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
     if (msg.content === '!up') {
-        axios.get('https://httpbin.org/status/500')
+        axios.get('https://httpbin.org/status/200')
             .then(res => {
                 console.log(res.data);
                 msg.reply('Started up the server')
