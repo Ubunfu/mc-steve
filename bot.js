@@ -77,9 +77,20 @@ async function getUnknownCommandReply() {
     return replies[await getRandomInt(replies.length)];
 }
 
+async function giveHelp(msg) {
+    const helpMsg = "This is what I can do: \n"
+        + "* `start`: I'll start up our Minecraft server \n"
+        + "* `stop`: I'll stop our Minecraft server \n"
+        + "* `help`: Show this help, since as it stands you can't do anything for yourself"
+    msg.reply(helpMsg);
+}
+
 async function handleMention(msg) {
     msg.content = await stripMentions(msg.content);
     switch (msg.content) {
+        case "help":
+            await giveHelp(msg);
+            break;
         case "start":
             await tryStartServer(msg);
             break;
