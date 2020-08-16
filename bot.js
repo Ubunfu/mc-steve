@@ -8,22 +8,17 @@ const botCommands = require('./botCommands.js');
 
 async function handleMention(msg) {
     msg.content = await botUtils.stripMentions(msg.content);
-    switch (msg.content) {
-        case "help":
-            await botCommands.giveHelp(msg);
-            break;
-        case "start":
-            await botCommands.tryStartServer(msg);
-            break;
-        case "stop":
-            await botCommands.tryStopServer(msg);
-            break;
-        case "search":
-            await botCommands.searchMinecraftWikiForArticles(msg);
-            break;
-        default:
-            msg.reply(await botUtils.getUnknownCommandReply());
-            break;
+    const str = 'asdf';
+    if (msg.content.match(/^search (\w+)/)) {
+        await botCommands.searchMinecraftWikiForArticles(msg);
+    } else if (msg.content == 'start') {
+        await botCommands.tryStartServer(msg);
+    } else if (msg.content == 'stop') {
+        await botCommands.tryStopServer(msg);
+    } else if (msg.content == 'help') {
+        await botCommands.giveHelp(msg);
+    } else {
+        msg.reply(await botUtils.getUnknownCommandReply());
     }
 }
 

@@ -40,8 +40,18 @@ async function tryStopServer(msg) {
     }
 }
 
-async function searchMinecraftWikiForArticles() {
-
+async function searchMinecraftWikiForArticles(msg) {
+    msg.content = msg.content.replace(/^search/, '').trim();
+    const OP_ROLE = process.env.OP_ROLE;
+    const resp = await axios.get('https://minecraft.fandom.com/api/v1/Search/List', {
+        params: {
+            query: `${msg.content}`,
+            namespaces: 0,
+            limit: 3
+        }
+    });
+    const results = await botUtils.buildSearchResponse(resp.data.items);
+    msg.reply(results);
 }
 
 exports.giveHelp = giveHelp;

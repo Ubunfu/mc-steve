@@ -4,7 +4,36 @@ const mathUtils = require('../mathUtils');
 const botUtilsConstants = require('../botUtilsConstants.js');
 const botUtilsTestConstants = require('./botUtilsTestConstants.js');
 const sinon = require('sinon');
-const { Message } = require('discord.js');
+
+describe('removeSpans(snippet)', function() {
+   describe('When snippet contains no spans', function() {
+        it('Should return the original message', async function() {
+            const cleanedSnippet = await botUtils.removeSpans(botUtilsTestConstants.SNIPPET_NO_SPANS);
+            expect(cleanedSnippet).to.be.equal(botUtilsTestConstants.SNIPPET_NO_SPANS);
+        });
+   });
+   describe('Snippet contains spans', function() {
+        it('Removes all spans', async function() {
+           const cleanedSnippet = await botUtils.removeSpans(botUtilsTestConstants.SNIPPET_SPANS);
+           expect(cleanedSnippet).to.be.equal(botUtilsTestConstants.SNIPPET_NO_SPANS);
+        });
+   });
+});
+
+describe('buildSearchResponse(items)', function() {
+   describe('When search results contain no items', function() {
+       it('Should return empty results message', async function() {
+          const respMsg = await botUtils.buildSearchResponse([]);
+          expect(respMsg).to.be.equal(botUtilsConstants.EMPTY_SEARCH_RESULTS_MESSAGE);
+       });
+    });
+    describe('When search results contain one item', function() {
+        it('Should return one suggestion', async function() {
+            const respMsg = await botUtils.buildSearchResponse(botUtilsTestConstants.SEARCH_RESULTS_ONE_ITEM);
+            expect(respMsg).to.be.equal('\n* **Brewing**: <https://minecraft.fandom.com/wiki/Brewing>\nA Brewing Stand is a craftable utility block in Minecraft used in the brewing process to make potions, splash potions, and lingering potions. The collision box of the brewing stand involves the bottle holders and\n');
+        });
+    });
+});
 
 describe('getUnknownCommandReply()', function () {
     for (let index = 0; index < botUtilsConstants.UNKNOWN_COMMAND_REPLIES.length; index++) {
