@@ -27,11 +27,6 @@ async function getUnknownCommandReply() {
     return replies[await mathUtils.getRandomInt(replies.length)];
 }
 
-async function giveHelp(msg) {
-    msg.reply(botUtilsConstants.HELP_MESSAGE);
-}
-
 exports.stripMentions = stripMentions;
 exports.msgAuthorHasRole = msgAuthorHasRole;
 exports.getUnknownCommandReply = getUnknownCommandReply;
-exports.giveHelp = giveHelp;

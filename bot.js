@@ -3,54 +3,23 @@ require('dotenv').config();
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const axios = require('axios');
 const botUtils = require('./botUtils.js');
-
-async function tryStartServer(msg) {
-    const OP_ROLE = process.env.OP_ROLE;
-    const URL_SERVER_START = process.env.URL_SERVER_START;
-    if (await botUtils.msgAuthorHasRole(msg, OP_ROLE)) {
-        axios.get(URL_SERVER_START)
-        .then(res => {
-            msg.reply('Server is starting');
-        })
-        .catch(err => {
-            msg.reply('I tried, but the server said no!')
-            console.error(URL_SERVER_START + ": " + err.response.status + ": " + err.response.statusText);
-        });
-    } else {
-        msg.reply("You need the " + OP_ROLE + " role to do that");
-    }
-}
-
-async function tryStopServer(msg) {
-    const OP_ROLE = process.env.OP_ROLE;
-    const URL_SERVER_STOP = process.env.URL_SERVER_STOP;
-    if (await botUtils.msgAuthorHasRole(msg, OP_ROLE)) {
-        axios.get(URL_SERVER_STOP)
-        .then(res => {
-            msg.reply('Server is stopping');
-        })
-        .catch(err => {
-            msg.reply('I tried, but the server said no!')
-            console.error(URL_SERVER_STOP + ": " + err.response.status + ": " + err.response.statusText);
-        });
-    } else {
-        msg.reply("You need the " + OP_ROLE + " role to do that");
-    }
-}
+const botCommands = require('./botCommands.js');
 
 async function handleMention(msg) {
     msg.content = await botUtils.stripMentions(msg.content);
     switch (msg.content) {
         case "help":
-            await botUtils.giveHelp(msg);
+            await botCommands.giveHelp(msg);
             break;
         case "start":
-            await tryStartServer(msg);
+            await botCommands.tryStartServer(msg);
             break;
         case "stop":
-            await tryStopServer(msg);
+            await botCommands.tryStopServer(msg);
+            break;
+        case "search":
+            await botCommands.searchMinecraftWikiForArticles(msg);
             break;
         default:
             msg.reply(await botUtils.getUnknownCommandReply());
