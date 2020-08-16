@@ -7,6 +7,7 @@ Minecraft Steve can be called upon for help (or a snappy remark) by mentioning h
 ### Commands
 * `start`: Starts the Minecraft server by making an HTTP request to the endpoint supplied by the configured `URL_SERVER_START` environment variable
 * `stop`: Stops the Minecraft server by making an HTTP request to the endpoint supplied by the configured `URL_SERVER_STOP` environment variable
+* `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related `<search terms>`.  The bot will respond to you by mention with a list of search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
 * `help`: Responds with the currently supported list of commands
 
 ## Setup
