@@ -42,7 +42,6 @@ async function tryStopServer(msg) {
 
 async function searchMinecraftWikiForArticles(msg) {
     msg.content = msg.content.replace(/^search/, '').trim();
-    const OP_ROLE = process.env.OP_ROLE;
     const resp = await axios.get('https://minecraft.fandom.com/api/v1/Search/List', {
         params: {
             query: `${msg.content}`,
