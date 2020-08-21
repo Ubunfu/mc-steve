@@ -2,7 +2,7 @@ const botUtilsConstants = require('./botUtilsConstants.js');
 const mathUtils = require('./mathUtils.js');
 
 async function stripMentions(msgContent) {
-    const regex = /<@!(\d*)>/g;
+    const regex = /<@!?(\d*)>/g;
     let result = msgContent.replace(regex, '').trim();
     return result;
 }

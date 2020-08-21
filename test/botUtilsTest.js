@@ -124,6 +124,14 @@ describe('stripMentions(msg)', function () {
             const expectedResult = '';
             const result = await botUtils.stripMentions(originalMsg);
             expect(result).to.be.equal(expectedResult);
-        })
-    })
+        });
+    });
+    describe('When the message contains mentions without \'!\'', function() {
+        it('Should remove the mention', async function() {
+            const originalMsg = '<@0000000000> help steve!';
+            const expectedResult = 'help steve!';
+            const result = await botUtils.stripMentions(originalMsg);
+            expect(result).to.equal(expectedResult) 
+        });
+    });
 });
