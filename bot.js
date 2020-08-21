@@ -7,8 +7,8 @@ const botUtils = require('./botUtils.js');
 const botCommands = require('./botCommands.js');
 
 async function handleMention(msg) {
+    console.log(`[${new Date().toISOString()}][${msg.author.username}]: \'${msg.content}\'`);
     msg.content = await botUtils.stripMentions(msg.content);
-    const str = 'asdf';
     if (msg.content.match(/^search (\w+)/)) {
         await botCommands.searchMinecraftWikiForArticles(msg);
     } else if (msg.content == 'start') {
