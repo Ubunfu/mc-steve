@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.2.0]
+* Adding Docker support.  [Fixes #6](https://github.com/Ubunfu/mc-steve/issues/6)
+
 ## [v1.1.2]
 * Fixing error handling bug that breaks Steve when DM-ing a privileged command.  [Fixes #3](https://github.com/Ubunfu/mc-steve/issues/3)
 * Changing `OP_ROLE` environment variable to `PRIV_ROLE`.
