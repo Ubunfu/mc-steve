@@ -6,6 +6,7 @@ This project attempts to conform to [SemVer](https://semver.org/) guidelines whe
 * Changing `OP_ROLE` environment variable to `PRIV_ROLE`.
 * Steve responds with a special message if a privilege command is invoked from outside the privileged Guild
 * Adding `PRIV_GUILD` environment variable
+* Adding Circle CI build configuration
 
 ## [1.1.1]
 * Fixing bug in command parsing RegEx patterns. [Fixes #2](https://github.com/Ubunfu/mc-steve/issues/2)
