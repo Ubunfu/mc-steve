@@ -18,7 +18,8 @@ To work properly, Minecraft Steve needs to be configured by injecting some envir
 When hosting this application in a container or in the cloud, use that technology / platform's means for injecting such configuration into the runtime.
 
 * `DISCORD_TOKEN`: This is an OAuth token provisioned by Discord.  At a minimum, this token should have scopes [`bot`] and bot permissions: [`Send Messages`, `Read Message History`, `Add Reactions`].
-* `OP_ROLE`: This is the name of a role defined within the Guild which protects the execution of privileged operations, like `start` and `stop`.
+* `PRIV_ROLE`: This is the name of a role defined within the Guild which protects the execution of privileged operations, like `start` and `stop`.
+* `PRIV_GUILD`: This is the name of the Guild to which privileged command execution should be restricted.
 * `BOT_USERNAME`: This is the bot's username as known by Discord.  It should be set to `mc-steve`.
 * `URL_SERVER_START`: The URL of an API that can start the Minecraft server.
 * `URL_SERVER_STOP`: The URL of an API that can stop the Minecraft server.

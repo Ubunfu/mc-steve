@@ -50,42 +50,6 @@ describe('getUnknownCommandReply()', function () {
     }
 });
 
-describe('msgAuthorHasRole(msg, opRole)', function() {
-    describe('When required role does not exist in guild', function() {
-        it('Should return false', async function() {
-            const msg = {
-                'guild': botUtilsTestConstants.GUILD_NO_ADMIN_ROLE
-            };
-            const result = await botUtils.msgAuthorHasRole(msg, 'AdminRole');
-            expect(result).to.be.equal(false);
-        });
-    });
-    describe('When message author has the required role', function() {
-        it('Should return true', async function() {
-            const msg = {
-                'author': {
-                    'username': 'msgAuthorUsername'
-                }, 
-                'guild': botUtilsTestConstants.GUILD_AUTHOR_HAS_ROLE
-            };
-            const result = await botUtils.msgAuthorHasRole(msg, 'AdminRole');
-            expect(result).to.be.equal(true);
-        });
-    });
-    describe('When message author does not have the required role', function() {
-        it('Should return false', async function() {
-            const msg = {
-                'author': {
-                    'username': 'msgAutherUsername'
-                }, 
-                'guild': botUtilsTestConstants.GUILD_ADMIN_ROLE_NO_MEMBERS
-            };
-            const result = await botUtils.msgAuthorHasRole(msg, 'AdminRole');
-            expect(result).to.be.equal(false);
-        });
-    });
-});
-
 describe('stripMentions(msg)', function () {
     describe('When the message does not contain mentions', function () {
         it('Should return the same message', async function() {
