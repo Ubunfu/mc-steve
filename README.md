@@ -24,7 +24,12 @@ When hosting this application in a container or in the cloud, use that technolog
 * `URL_SERVER_START`: The URL of an API that can start the Minecraft server.
 * `URL_SERVER_STOP`: The URL of an API that can stop the Minecraft server.
 
-## Run Locally
+## Build and run locally
+### With Docker
+1. `docker build . -t mc-steve`
+2. `docker run --env-file .env mc-steve`
+
+### Without Docker
 1. Clone the project
 2. Make sure you have Node JS installed
 3. Run `npm install`
