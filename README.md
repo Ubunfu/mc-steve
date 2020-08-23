@@ -10,8 +10,9 @@ Minecraft Steve is a snarky Discord chat bot hailing from the caves of Moria tha
 Minecraft Steve can be called upon for help (or a snappy remark) by mentioning him by name (or nickname) in a message within the Discord Guild in which he is staying.  The message should take the form: `@[ mc-steve | NICKNAME ] COMMAND`.
 
 ### Commands
-* `start`: Starts the Minecraft server by making an HTTP request to the endpoint supplied by the configured `URL_SERVER_START` environment variable
-* `stop`: Stops the Minecraft server by making an HTTP request to the endpoint supplied by the configured `URL_SERVER_STOP` environment variable
+> ***(Privileged)*** denotes that the command is restricted to members invoking it from the configured Guild (PRIV_GUILD), who have the configured role (PRIV_ROLE).
+* `start`: ***(Privileged)*** Starts a configured AWS-hosted Minecraft server
+* `stop`: ***(Privileged)*** Stops a configured AWS-hosted Minecraft server
 * `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related `<search terms>`.  The bot will respond to you by mention with a list of search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
 * `help`: Responds with the currently supported list of commands
 
@@ -26,8 +27,12 @@ When hosting this application in a container or in the cloud, use that technolog
 * `PRIV_ROLE`: This is the name of a role defined within the Guild which protects the execution of privileged operations, like `start` and `stop`.
 * `PRIV_GUILD`: This is the name of the Guild to which privileged command execution should be restricted.
 * `BOT_USERNAME`: This is the bot's username as known by Discord.  It should be set to `mc-steve`.
-* `URL_SERVER_START`: The URL of an API that can start the Minecraft server.
-* `URL_SERVER_STOP`: The URL of an API that can stop the Minecraft server.
+* `SERVER_REGION`: The region of the AWS hosted Minecraft server (e.g. `us-east-1`)
+* `SERVER_INSTANCE_ID`: The instance ID of the AWS hosted Minecraft server (e.g. `i-1g2b854552806c05e`)
+* `SERVER_KEY_ID`: Access Key ID of an AWS IAM user with sufficient privileges to start and stop EC2 instances.
+* `SERVER_SEC_KEY`: Secret Key ID of an AWS IAM user with sufficient privileges to start and stop EC2 instances.
+
+> If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
 ## Build and run locally
 ### With Docker
