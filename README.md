@@ -10,7 +10,7 @@ Minecraft Steve is a snarky Discord chat bot hailing from the caves of Moria tha
 Minecraft Steve can be called upon for help (or a snappy remark) by mentioning him by name (or nickname) in a message within the Discord Guild in which he is staying.  The message should take the form: `@[ mc-steve | NICKNAME ] COMMAND`.
 
 ### Commands
-> ***(Privileged)*** denotes that the command is restricted to members invoking it from the configured Guild (PRIV_GUILD), who have the configured role (PRIV_ROLE).
+> ***(Privileged)*** denotes that the command is restricted to members invoking it from a configured Guild (PRIV_GUILD), and who have a configured role (i.e. ROLE_START, ROLE_STOP).
 * `start`: ***(Privileged)*** Starts a configured AWS-hosted Minecraft server
 * `stop`: ***(Privileged)*** Stops a configured AWS-hosted Minecraft server
 * `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related `<search terms>`.  The bot will respond to you by mention with a list of search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
