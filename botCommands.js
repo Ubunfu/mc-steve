@@ -13,14 +13,16 @@ async function tryStartServer(msg) {
     const SERVER_INSTANCE_ID = process.env.SERVER_INSTANCE_ID;
     const SERVER_KEY_ID = process.env.SERVER_KEY_ID;
     const SERVER_SEC_KEY = process.env.SERVER_SEC_KEY;
-    if (await botAuthenticator.msgAuthorIsPrivileged(msg)) {
+    const ROLE_START = process.env.ROLE_START;
+    if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_START)) {
         const startResp = await awsHelpers
             .startServer(SERVER_REGION, SERVER_KEY_ID, SERVER_SEC_KEY, SERVER_INSTANCE_ID)
             .catch(err => {
                 msg.reply('Technical problem starting the server');
             });
         if (!startResp) {return;}
-        if (startResp.StartingInstances[0].CurrentState.Name === 'starting') {
+        if ((startResp.StartingInstances[0].CurrentState.Name === 'starting') ||
+            (startResp.StartingInstances[0].CurrentState.Name === 'pending')) {
             msg.reply('Starting server');
         } else if (startResp.StartingInstances[0].CurrentState.Name === 'running') {
             msg.reply('The server is already running');
@@ -35,7 +37,8 @@ async function tryStopServer(msg) {
     const SERVER_INSTANCE_ID = process.env.SERVER_INSTANCE_ID;
     const SERVER_KEY_ID = process.env.SERVER_KEY_ID;
     const SERVER_SEC_KEY = process.env.SERVER_SEC_KEY;
-    if (await botAuthenticator.msgAuthorIsPrivileged(msg)) {
+    const ROLE_STOP = process.env.ROLE_STOP;
+    if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_STOP)) {
         const stopResp = await awsHelpers
             .stopServer(SERVER_REGION, SERVER_KEY_ID, SERVER_SEC_KEY, SERVER_INSTANCE_ID)
             .catch(err => {
