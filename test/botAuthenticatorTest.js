@@ -1,5 +1,4 @@
 const expect = require('chai').expect;
-const botUtils = require('../botUtils.js');
 const botUtilsTestConstants = require('./botUtilsTestConstants.js');
 const botAuthenticator = require('../botAuthenticator.js');
 

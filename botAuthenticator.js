@@ -1,6 +1,5 @@
-async function msgAuthorIsPrivileged(msg) {
+async function msgAuthorIsPrivileged(msg, privRole) {
     const privGuild = process.env.PRIV_GUILD;
-    const privRole = process.env.PRIV_ROLE;``
     if (! await msgAuthorInPrivGuild(msg, privGuild)) {
         msg.reply(`Message me from the \'${privGuild}\' Guild to do that.'`);
         return false;
