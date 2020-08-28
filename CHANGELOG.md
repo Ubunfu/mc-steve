@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.3.1]
+* Restoring missing aws-sdk dependency
+
 ## [v1.3.0]
 * Adding support for starting and stopping an AWS server by instance ID. [Fixes #10](https://github.com/Ubunfu/mc-steve/issues/10)
 
