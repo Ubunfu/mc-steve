@@ -2,35 +2,56 @@ const axios = require('axios');
 const botUtils = require('./botUtils.js');
 const botUtilsConstants = require('./botUtilsConstants.js');
 const botAuthenticator = require('./botAuthenticator.js');
+const awsHelpers = require('./awsHelpers.js');
 
 async function giveHelp(msg) {
     msg.reply(botUtilsConstants.HELP_MESSAGE);
 }
+
 async function tryStartServer(msg) {
-    const URL_SERVER_START = process.env.URL_SERVER_START;
-    if (await botAuthenticator.msgAuthorIsPrivileged(msg)) {
-        axios.get(URL_SERVER_START)
-        .then(res => {
-            msg.reply('Server is starting');
-        })
-        .catch(err => {
-            msg.reply('I tried, but the server said no!')
-            console.error(URL_SERVER_START + ": " + err.response.status + ": " + err.response.statusText);
-        });
+    const SERVER_REGION = process.env.SERVER_REGION;
+    const SERVER_INSTANCE_ID = process.env.SERVER_INSTANCE_ID;
+    const SERVER_KEY_ID = process.env.SERVER_KEY_ID;
+    const SERVER_SEC_KEY = process.env.SERVER_SEC_KEY;
+    const ROLE_START = process.env.ROLE_START;
+    if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_START)) {
+        const startResp = await awsHelpers
+            .startServer(SERVER_REGION, SERVER_KEY_ID, SERVER_SEC_KEY, SERVER_INSTANCE_ID)
+            .catch(err => {
+                msg.reply('Technical problem starting the server');
+            });
+        if (!startResp) {return;}
+        if ((startResp.StartingInstances[0].CurrentState.Name === 'starting') ||
+            (startResp.StartingInstances[0].CurrentState.Name === 'pending')) {
+            msg.reply('Starting server');
+        } else if (startResp.StartingInstances[0].CurrentState.Name === 'running') {
+            msg.reply('The server is already running');
+        } else {
+            msg.reply('I couldn\'t start the server');
+        }
     }
 }
 
 async function tryStopServer(msg) {
-    const URL_SERVER_STOP = process.env.URL_SERVER_STOP;
-    if (await botAuthenticator.msgAuthorIsPrivileged(msg)) {
-        axios.get(URL_SERVER_STOP)
-        .then(res => {
-            msg.reply('Server is stopping');
-        })
-        .catch(err => {
-            msg.reply('I tried, but the server said no!')
-            console.error(URL_SERVER_STOP + ": " + err.response.status + ": " + err.response.statusText);
-        });
+    const SERVER_REGION = process.env.SERVER_REGION;
+    const SERVER_INSTANCE_ID = process.env.SERVER_INSTANCE_ID;
+    const SERVER_KEY_ID = process.env.SERVER_KEY_ID;
+    const SERVER_SEC_KEY = process.env.SERVER_SEC_KEY;
+    const ROLE_STOP = process.env.ROLE_STOP;
+    if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_STOP)) {
+        const stopResp = await awsHelpers
+            .stopServer(SERVER_REGION, SERVER_KEY_ID, SERVER_SEC_KEY, SERVER_INSTANCE_ID)
+            .catch(err => {
+                msg.reply('Technical problem stopping the server');
+            });
+        if (!stopResp) {return;}
+        if (stopResp.StoppingInstances[0].CurrentState.Name === 'stopping') {
+            msg.reply('Stopping server');
+        } else if (stopResp.StoppingInstances[0].CurrentState.Name === 'stopped') {
+            msg.reply('The server is already stopped');
+        } else {
+            msg.reply('I couldn\'t stop the server');
+        }
     }
 }
 
