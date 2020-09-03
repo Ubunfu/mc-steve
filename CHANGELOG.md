@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.4.0]
+* Adding AWS integration tests
+
 ## [v1.3.1]
 * Restoring missing aws-sdk dependency
 
