@@ -9,7 +9,7 @@ describe('startServer(serverRegion, credsKeyId, credsSecretKey, serverId)', func
     describe('When EC2 returns data', function() {
         beforeEach(function() {
             AWS.mock('EC2', 'startInstances', function(params, callback) {
-                callback(null, awsHelpersTestConstants.EC2_START_INSTANCES_RESPONSE_SUCCESS);
+                callback(null, awsHelpersTestConstants.EC2_START_INSTANCES_RESPONSE_STARTING);
             });
         });
         afterEach(function () {
@@ -17,7 +17,7 @@ describe('startServer(serverRegion, credsKeyId, credsSecretKey, serverId)', func
           });
         it('Resolved response should include data', async function() {
             const resp = await awsHelpers.startServer('', '', '', awsHelpersTestConstants.INSTANCE_ID);
-            expect(resp).to.be.equal(awsHelpersTestConstants.EC2_START_INSTANCES_RESPONSE_SUCCESS);
+            expect(resp).to.be.equal(awsHelpersTestConstants.EC2_START_INSTANCES_RESPONSE_STARTING);
         });
     });
 
@@ -67,7 +67,7 @@ describe('stopServer(serverRegion, credsKeyId, credsSecretKey, serverId)', funct
     describe('When EC2 returns data', function() {
         beforeEach(function() {
             AWS.mock('EC2', 'stopInstances', function(params, callback) {
-                callback(null, awsHelpersTestConstants.EC2_STOP_INSTANCES_RESPONSE_SUCCESS);
+                callback(null, awsHelpersTestConstants.EC2_STOP_INSTANCES_RESPONSE_STOPPING);
             });
         });
         afterEach(function () {
@@ -75,7 +75,7 @@ describe('stopServer(serverRegion, credsKeyId, credsSecretKey, serverId)', funct
           });
         it('Resolved response should include data', async function() {
             const resp = await awsHelpers.stopServer('', '', '', awsHelpersTestConstants.INSTANCE_ID);
-            expect(resp).to.be.equal(awsHelpersTestConstants.EC2_STOP_INSTANCES_RESPONSE_SUCCESS);
+            expect(resp).to.be.equal(awsHelpersTestConstants.EC2_STOP_INSTANCES_RESPONSE_STOPPING);
         });
     });
 
