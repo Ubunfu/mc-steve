@@ -4,7 +4,8 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive test/",
-    "start": "node --unhandled-rejections=strict ./src/bot.js"
+    "start": "node --unhandled-rejections=strict ./src/bot.js",
+    "coveralls-report": "nyc report --clean --reporter=lcov"
   },
   "keywords": [],
   "author": "",
