@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "main": "index.js",
   "scripts": {
-    "test": "nyc mocha",
+    "test": "nyc mocha --recursive test/",
     "start": "node --unhandled-rejections=strict bot.js"
   },
   "keywords": [],

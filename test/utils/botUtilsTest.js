@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
-const botUtils = require('../botUtils.js');
-const mathUtils = require('../mathUtils');
-const botUtilsConstants = require('../botUtilsConstants.js');
+const botUtils = require('../../src/utils/botUtils.js');
+const mathUtils = require('../../src/utils/mathUtils.js');
+const botUtilsConstants = require('../../src/utils/botUtilsConstants.js');
 const botUtilsTestConstants = require('./botUtilsTestConstants.js');
 const sinon = require('sinon');
 

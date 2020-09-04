@@ -1,13 +1,13 @@
 const sinon = require('sinon');
 const discord = require('discord.js');
-const botCommands = require('../botCommands.js');
+const botCommands = require('../../src/commands/botCommands.js');
 const expect = require('chai').expect;
-const botUtilsConstants = require('../botUtilsConstants.js');
-const botAuthenticator = require('../botAuthenticator.js');
-const awsHelpers = require('../awsHelpers.js');
-const awsHelpersTestConstants = require('./awsHelpersTestConstants.js');
+const botUtilsConstants = require('../../src/utils/botUtilsConstants.js');
+const botAuthenticator = require('../../src/authenticator/botAuthenticator.js');
+const awsHelpers = require('../../src/aws/awsHelpers.js');
+const awsHelpersTestConstants = require('../aws/awsHelpersTestConstants.js');
 const axios = require('axios');
-const botUtils = require('../botUtils.js');
+const botUtils = require('../../src/utils/botUtils.js');
 
 
 describe('giveHelp(msg)', function() {

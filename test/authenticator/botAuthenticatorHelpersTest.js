@@ -1,6 +1,6 @@
-const botUtilsTestConstants = require('./botUtilsTestConstants.js');
+const botUtilsTestConstants = require('../utils/botUtilsTestConstants.js');
 const expect = require('chai').expect;
-const botAuthenticatorHelpers = require('../botAuthenticatorHelpers.js');
+const botAuthenticatorHelpers = require('../../src/authenticator/botAuthenticatorHelpers.js');
 
 describe('msgAuthorInPrivGuild(msg, privGuild)', function() {
     describe('When author is messaging from the privileged Guild', function() {

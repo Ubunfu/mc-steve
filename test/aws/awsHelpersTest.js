@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const awsHelpers = require('../awsHelpers.js');
+const awsHelpers = require('../../src/aws/awsHelpers.js');
 const AWS = require('aws-sdk-mock');
 const AWSSDK = require('aws-sdk');
 const sinon = require('sinon');

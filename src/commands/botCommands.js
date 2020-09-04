@@ -1,8 +1,8 @@
 const axios = require('axios');
-const botUtils = require('./botUtils.js');
-const botUtilsConstants = require('./botUtilsConstants.js');
-const botAuthenticator = require('./botAuthenticator.js');
-const awsHelpers = require('./awsHelpers.js');
+const botUtils = require('../utils/botUtils.js');
+const botUtilsConstants = require('../utils/botUtilsConstants.js');
+const botAuthenticator = require('../authenticator/botAuthenticator.js');
+const awsHelpers = require('../aws/awsHelpers.js');
 
 async function giveHelp(msg) {
     msg.reply(botUtilsConstants.HELP_MESSAGE);

@@ -1,8 +1,8 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 const discord = require('discord.js');
-const botAuthenticator = require('../botAuthenticator.js');
-const botAuthenticatorHelpers = require('../botAuthenticatorHelpers.js');
+const botAuthenticator = require('../../src/authenticator/botAuthenticator.js');
+const botAuthenticatorHelpers = require('../../src/authenticator/botAuthenticatorHelpers.js');
 
 describe('msgAuthorIsPrivileged(msg, privRole)', function() {
     let replyStub, privGuildStub, privileged = null;
