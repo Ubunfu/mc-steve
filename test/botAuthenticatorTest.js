@@ -1,74 +1,90 @@
 const expect = require('chai').expect;
-const botUtilsTestConstants = require('./botUtilsTestConstants.js');
+const sinon = require('sinon');
+const discord = require('discord.js');
 const botAuthenticator = require('../botAuthenticator.js');
+const botAuthenticatorHelpers = require('../botAuthenticatorHelpers.js');
 
-describe('msgAuthorInPrivGuild(msg, privGuild)', function() {
-   describe('When author is messaging from the privileged Guild', function() {
-       it('Should return true', async function() {
-            const privGuild = 'Priv Guild';
-            const msg = {
-                'guild': {
-                    'name': 'Priv Guild'
-                }
-            };
-            const result = await botAuthenticator.msgAuthorInPrivGuild(msg, privGuild);
-            expect(result).to.be.equal(true);
-       });
-   });
-   describe('When author is not messaging from a non-privileged Guild', function() {
-        it('Should return false', async function() {
-            const privGuild = 'Priv Guild';
-            const msg = {
-                'guild': {
-                    'name': 'Random Guild'
-                }
-            };
-            const result = await botAuthenticator.msgAuthorInPrivGuild(msg, privGuild);
-            expect(result).to.be.equal(false);
-        });
-   });
-   describe('When author is not messaging from any Guild', function() {
-        it('Should return false', async function() {
-            const privGuild = 'Priv Guild';
-            const msg = { };
-            const result = await botAuthenticator.msgAuthorInPrivGuild(msg, privGuild);
-            expect(result).to.be.equal(false);
-        });
-   });
-});
+describe('msgAuthorIsPrivileged(msg, privRole)', function() {
+    let replyStub, privGuildStub, privileged = null;
+    process.env.PRIV_GUILD = 'privGuild';
+    const privRole = 'privRole';
+    const message = new discord.Message();
+    beforeEach(function() {
+        replyStub = sinon
+            .stub(message, "reply")
+            .returns(null);
+    });
+    afterEach(function() {
+       replyStub.restore();
+       privileged = null;
+    });
 
-describe('msgAuthorHasPrivRole(msg, privRole)', function() {
-    describe('When required role does not exist in guild', function() {
-        it('Should return false', async function() {
-            const msg = {
-                'guild': botUtilsTestConstants.GUILD_NO_ADMIN_ROLE
-            };
-            const result = await botAuthenticator.msgAuthorHasPrivRole(msg, 'AdminRole');
-            expect(result).to.be.equal(false);
+    describe('When user not in privileged guild', function() {
+        beforeEach(async function() {
+            privGuildStub = sinon
+                .stub(botAuthenticatorHelpers, "msgAuthorInPrivGuild")
+                .returns(false);
+            privileged = await botAuthenticator.msgAuthorIsPrivileged(message, privRole);
         });
-    });
-    describe('When message author has the required role', function() {
-        it('Should return true', async function() {
-            const msg = {
-                'author': {
-                    'username': 'msgAuthorUsername'
-                }, 
-                'guild': botUtilsTestConstants.GUILD_AUTHOR_HAS_ROLE
-            };
-            const result = await botAuthenticator.msgAuthorHasPrivRole(msg, 'AdminRole');
-            expect(result).to.be.equal(true);
+        afterEach(function() {
+            privGuildStub.restore();
         });
+
+        it('Should return false', function() {
+            expect(privileged).to.be.false;
+        });
+        it('Should reply with correct message', function() {
+            expect(replyStub.calledOnceWith(`Message me from the \'${process.env.PRIV_GUILD}\' Guild to do that.'`)).to.be.true;
+        })
     });
-    describe('When message author does not have the required role', function() {
-        it('Should return false', async function() {
-            const msg = {
-                'author': {
-                    'username': 'msgAutherUsername'
-                }, 
-                'guild': botUtilsTestConstants.GUILD_ADMIN_ROLE_NO_MEMBERS
-            };
-            const result = await botAuthenticator.msgAuthorHasPrivRole(msg, 'AdminRole');
-            expect(result).to.be.equal(false);
+
+    describe('When user is in privileged guild', function() {
+        let privRoleStub = null;
+        beforeEach(function() {
+            privGuildStub = sinon
+                .stub(botAuthenticatorHelpers, "msgAuthorInPrivGuild")
+                .returns(true);
+        });
+        afterEach(function() {
+            privGuildStub.restore();
+        });
+
+        describe('When user has privileged role', function() {
+            beforeEach(async function() {
+                privRoleStub = sinon
+                    .stub(botAuthenticatorHelpers, "msgAuthorHasPrivRole")
+                    .returns(true);
+                privileged = await botAuthenticator.msgAuthorIsPrivileged(message, privRole);
+            });
+            afterEach(function() {
+                privRoleStub.restore();
+            });
+
+            it('Should return true', function() {
+                expect(privileged).to.be.true;
+            });
+            it('Should not reply', function() {
+                expect(replyStub.callCount).to.be.equal(0);
+            });
+        });
+
+        describe('When user does not have priveleged role', function() {
+            beforeEach(async function() {
+                privRoleStub = sinon
+                    .stub(botAuthenticatorHelpers, "msgAuthorHasPrivRole")
+                    .returns(false);
+                privileged = await botAuthenticator.msgAuthorIsPrivileged(message, privRole);
+            });
+            afterEach(function() {
+                privRoleStub.restore();
+            });
+
+            it('Should return false', function() {
+                expect(privileged).to.be.false;
+            });
+            it('Should reply with correct message', function() {
+                expect(replyStub.calledOnceWith(`You need to have the \'${privRole}\' role to do that.`)).to.be.true;
+            });
         });
     });
 });
