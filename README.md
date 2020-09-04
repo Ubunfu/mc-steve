@@ -1,8 +1,9 @@
 # Minecraft Steve
 [![Latest Release](https://img.shields.io/github/package-json/v/Ubunfu/mc-steve?style=for-the-badge)](https://github.com/Ubunfu/mc-steve/releases)
-[![Circle CI Build Status](https://img.shields.io/circleci/build/gh/Ubunfu/mc-steve?style=for-the-badge)](https://app.circleci.com/pipelines/github/Ubunfu/mc-steve)
+[![CircleCI](https://img.shields.io/circleci/build/github/Ubunfu/mc-steve?logo=circleci&style=for-the-badge)](https://app.circleci.com/pipelines/github/Ubunfu/mc-steve)
 ![Contrubutors](https://img.shields.io/github/contributors/Ubunfu/mc-steve?color=blue&style=for-the-badge)
 ![Last Commit](https://img.shields.io/github/last-commit/Ubunfu/mc-steve?style=for-the-badge)
+[![Coveralls github](https://img.shields.io/coveralls/github/Ubunfu/mc-steve?logo=coveralls&style=for-the-badge)](https://coveralls.io/github/Ubunfu/mc-steve)
 
 Minecraft Steve is a snarky Discord chat bot hailing from the caves of Moria that hangs out in our Guild and occasionally helps out with things.
 

@@ -1,5 +1,5 @@
 const expect = require('chai').expect;
-const mathUtils = require('../mathUtils');
+const mathUtils = require('../../src/utils/mathUtils.js');
 const sinon = require('sinon');
 
 describe('getRandomInt(max)', function() {

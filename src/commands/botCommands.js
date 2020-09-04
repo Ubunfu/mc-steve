@@ -1,8 +1,8 @@
 const axios = require('axios');
-const botUtils = require('./botUtils.js');
-const botUtilsConstants = require('./botUtilsConstants.js');
-const botAuthenticator = require('./botAuthenticator.js');
-const awsHelpers = require('./awsHelpers.js');
+const botUtils = require('../utils/botUtils.js');
+const botUtilsConstants = require('../utils/botUtilsConstants.js');
+const botAuthenticator = require('../authenticator/botAuthenticator.js');
+const awsHelpers = require('../aws/awsHelpers.js');
 
 async function giveHelp(msg) {
     msg.reply(botUtilsConstants.HELP_MESSAGE);
@@ -57,15 +57,28 @@ async function tryStopServer(msg) {
 
 async function searchMinecraftWikiForArticles(msg) {
     msg.content = msg.content.replace(/^search/, '').trim();
-    const resp = await axios.get('https://minecraft.fandom.com/api/v1/Search/List', {
-        params: {
-            query: `${msg.content}`,
-            namespaces: 0,
-            limit: 3
+    let resp;
+    try {
+        resp = await axios.get('https://minecraft.fandom.com/api/v1/Search/List', {
+            params: {
+                query: `${msg.content}`,
+                namespaces: 0,
+                limit: 3
+            }
+        });
+    } catch (err) {
+        console.error(err);
+        msg.reply('The wiki returned an error, sorry 😟');
+    }
+    if (resp) {
+        try {
+            const results = await botUtils.buildSearchResponse(resp.data.items);
+            msg.reply(results);
+        } catch (err) {
+            console.error(err);
+            msg.reply('The wiki responded but I don\'t understand it, sorry 😟');
         }
-    });
-    const results = await botUtils.buildSearchResponse(resp.data.items);
-    msg.reply(results);
+    }
 }
 
 exports.giveHelp = giveHelp;
