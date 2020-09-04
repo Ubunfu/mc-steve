@@ -3,6 +3,7 @@ This project attempts to conform to [SemVer](https://semver.org/) guidelines whe
 
 ## [v1.4.0]
 * [Adding integration tests and restructuring project files](https://github.com/Ubunfu/mc-steve/pull/19)
+* [Adding Coveralls code-coverage support!](https://github.com/Ubunfu/mc-steve/pull/20)
 
 ## [v1.3.1]
 * Restoring missing aws-sdk dependency
