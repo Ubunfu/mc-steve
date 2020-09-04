@@ -3,8 +3,8 @@ require('dotenv').config();
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const botUtils = require('./botUtils.js');
-const botCommands = require('./botCommands.js');
+const botUtils = require('./utils/botUtils.js');
+const botCommands = require('./commands/botCommands.js');
 
 async function handleMention(msg) {
     console.log(`[${new Date().toISOString()}][${msg.author.username}]: \'${msg.content}\'`);
