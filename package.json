@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive test/",
-    "start": "node --unhandled-rejections=strict bot.js"
+    "start": "node --unhandled-rejections=strict ./src/bot.js"
   },
   "keywords": [],
   "author": "",
