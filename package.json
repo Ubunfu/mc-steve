@@ -3,7 +3,7 @@
   "version": "1.4.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "nyc mocha",
     "start": "node --unhandled-rejections=strict bot.js"
   },
   "keywords": [],
@@ -20,6 +20,7 @@
     "aws-sdk-mock": "^5.1.0",
     "chai": "^4.2.0",
     "mocha": "^8.1.1",
+    "nyc": "^15.1.0",
     "sinon": "^9.0.3"
   }
 }
