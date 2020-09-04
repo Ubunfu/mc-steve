@@ -10,6 +10,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install and Make
-          command: npm install && npm run coveralls-report
+          name: Install
+          command: npm install
+      - run: 
+          name: Test
+          command: npm run test
+      - run: 
+          name: Generate Coverage Report
+          command: npm run coveralls-report
       - coveralls/upload

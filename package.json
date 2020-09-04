@@ -5,7 +5,7 @@
   "scripts": {
     "test": "nyc mocha --recursive test/",
     "start": "node --unhandled-rejections=strict ./src/bot.js",
-    "coveralls-report": "nyc report --clean --reporter=lcov"
+    "coveralls-report": "nyc report --reporter=lcov"
   },
   "keywords": [],
   "author": "",
