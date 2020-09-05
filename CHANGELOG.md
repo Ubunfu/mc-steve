@@ -2,7 +2,7 @@
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
 ## []
-* [Switching base docker image to node:14-slim]()
+* [Switching base docker image to node:14-slim](https://github.com/Ubunfu/mc-steve/pull/23)
 
 ## [v1.4.0]
 * [Adding integration tests and restructuring project files](https://github.com/Ubunfu/mc-steve/pull/19)
