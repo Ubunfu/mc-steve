@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## []
+* [Switching base docker image to node:14-slim]()
+
 ## [v1.4.0]
 * [Adding integration tests and restructuring project files](https://github.com/Ubunfu/mc-steve/pull/19)
 * [Adding Coveralls code-coverage support!](https://github.com/Ubunfu/mc-steve/pull/20)
