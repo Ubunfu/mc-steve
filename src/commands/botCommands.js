@@ -3,9 +3,17 @@ const botUtils = require('../utils/botUtils.js');
 const botUtilsConstants = require('../utils/botUtilsConstants.js');
 const botAuthenticator = require('../authenticator/botAuthenticator.js');
 const awsHelpers = require('../aws/awsHelpers.js');
+const rconClient = require('../rcon/rconClient.js');
 
 async function giveHelp(msg) {
     msg.reply(botUtilsConstants.HELP_MESSAGE);
+}
+
+async function rconCommand(msg) {
+    const ROLE_RCON = process.env.ROLE_RCON;
+    if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_RCON)) {
+        rconClient.executeCommand(msg.content);
+    }
 }
 
 async function tryStartServer(msg) {
@@ -85,3 +93,4 @@ exports.giveHelp = giveHelp;
 exports.tryStartServer = tryStartServer;
 exports.tryStopServer = tryStopServer;
 exports.searchMinecraftWikiForArticles = searchMinecraftWikiForArticles;
+exports.rconCommand = rconCommand;
