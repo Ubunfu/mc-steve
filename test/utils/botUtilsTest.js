@@ -5,7 +5,7 @@ const botUtilsConstants = require('../../src/utils/botUtilsConstants.js');
 const botUtilsTestConstants = require('./botUtilsTestConstants.js');
 const sinon = require('sinon');
 
-describe('removeSpans(snippet)', function() {
+describe('botUtils.removeSpans(snippet)', function() {
    describe('When snippet contains no spans', function() {
         it('Should return the original message', async function() {
             const cleanedSnippet = await botUtils.removeSpans(botUtilsTestConstants.SNIPPET_NO_SPANS);
@@ -20,7 +20,7 @@ describe('removeSpans(snippet)', function() {
    });
 });
 
-describe('buildSearchResponse(items)', function() {
+describe('botUtils.buildSearchResponse(items)', function() {
    describe('When search results contain no items', function() {
        it('Should return empty results message', async function() {
           const respMsg = await botUtils.buildSearchResponse([]);
@@ -35,7 +35,7 @@ describe('buildSearchResponse(items)', function() {
     });
 });
 
-describe('getUnknownCommandReply()', function () {
+describe('botUtils.getUnknownCommandReply()', function () {
     for (let index = 0; index < botUtilsConstants.UNKNOWN_COMMAND_REPLIES.length; index++) {
         describe(`When message number ${index} should be returned`, function () {
             const msg = botUtilsConstants.UNKNOWN_COMMAND_REPLIES[index];
@@ -50,7 +50,7 @@ describe('getUnknownCommandReply()', function () {
     }
 });
 
-describe('stripMentions(msg)', function () {
+describe('botUtils.stripMentions(msg)', function () {
     describe('When the message does not contain mentions', function () {
         it('Should return the same message', async function() {
             const originalMsg = 'steve help me';

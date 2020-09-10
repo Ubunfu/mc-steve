@@ -2,7 +2,7 @@ const botUtilsTestConstants = require('../utils/botUtilsTestConstants.js');
 const expect = require('chai').expect;
 const botAuthenticatorHelpers = require('../../src/authenticator/botAuthenticatorHelpers.js');
 
-describe('msgAuthorInPrivGuild(msg, privGuild)', function() {
+describe('botAuthenticatorHelpers.msgAuthorInPrivGuild(msg, privGuild)', function() {
     describe('When author is messaging from the privileged Guild', function() {
         it('Should return true', async function() {
              const privGuild = 'Priv Guild';
@@ -37,7 +37,7 @@ describe('msgAuthorInPrivGuild(msg, privGuild)', function() {
     });
  });
  
- describe('msgAuthorHasPrivRole(msg, privRole)', function() {
+ describe('botAuthenticatorHelpers.msgAuthorHasPrivRole(msg, privRole)', function() {
      describe('When required role does not exist in guild', function() {
          it('Should return false', async function() {
              const msg = {
