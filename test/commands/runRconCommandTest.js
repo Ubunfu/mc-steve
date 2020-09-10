@@ -7,7 +7,7 @@ const rconClient = require('../../src/rcon/rconClient.js');
 
 describe('botCommands.runRconCommand(msg)', function() {
     let botAuthStub, replyStub = null;
-    const message = new discord.Message();
+    let message = new discord.Message();
     beforeEach(function() {
         replyStub = sinon
             .stub(message, "reply")
@@ -35,22 +35,22 @@ describe('botCommands.runRconCommand(msg)', function() {
         });
     });
     describe('When message author is privileged', function() {
-        let rconExecuteStub = null;
-        beforeEach(function() {
+        let rconExecuteStub, msgContentStub = null;
+        message.content = 'run some rcon command';
+        beforeEach(async function() {
             botAuthStub = sinon
                 .stub(botAuthenticator, "msgAuthorIsPrivileged")
                 .returns(true);
+            rconExecuteStub = sinon
+                .stub(rconClient, "executeCommand")
+                .returns(null);
+            await botCommands.rconCommand(message);
         });
         afterEach(function() {
             botAuthStub.restore();
         });
-        it('Should execute RCON command', async function() {
-            rconExecuteStub = sinon
-                .stub(rconClient, "executeCommand")
-                .returns(null);
-
-            await botCommands.rconCommand(message);
-            expect(rconExecuteStub.calledOnce).to.be.true;
+        it('Should execute correct RCON command', function() {
+            expect(rconExecuteStub.calledOnceWith('some rcon command')).to.be.true;
             rconExecuteStub.restore();
         });
     });

@@ -12,7 +12,8 @@ async function giveHelp(msg) {
 async function rconCommand(msg) {
     const ROLE_RCON = process.env.ROLE_RCON;
     if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_RCON)) {
-        rconClient.executeCommand(msg.content);
+        const command = msg.content.replace('run', '').trim();
+        rconClient.executeCommand(command);
     }
 }
 
