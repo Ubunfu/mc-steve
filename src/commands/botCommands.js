@@ -13,7 +13,7 @@ async function rconCommand(msg) {
     const ROLE_RCON = process.env.ROLE_RCON;
     if (await botAuthenticator.msgAuthorIsPrivileged(msg, ROLE_RCON)) {
         const command = msg.content.replace('run', '').trim();
-        rconClient.executeCommand(command);
+        rconClient.executeCommand(msg, command);
     }
 }
 

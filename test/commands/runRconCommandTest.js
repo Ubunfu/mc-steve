@@ -35,7 +35,7 @@ describe('botCommands.runRconCommand(msg)', function() {
         });
     });
     describe('When message author is privileged', function() {
-        let rconExecuteStub, msgContentStub = null;
+        let rconExecuteStub = null;
         message.content = 'run some rcon command';
         beforeEach(async function() {
             botAuthStub = sinon
@@ -50,7 +50,7 @@ describe('botCommands.runRconCommand(msg)', function() {
             botAuthStub.restore();
         });
         it('Should execute correct RCON command', function() {
-            expect(rconExecuteStub.calledOnceWith('some rcon command')).to.be.true;
+            expect(rconExecuteStub.calledOnceWith(message, 'some rcon command')).to.be.true;
             rconExecuteStub.restore();
         });
     });
