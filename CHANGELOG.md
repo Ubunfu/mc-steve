@@ -2,7 +2,7 @@
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
 ## [v1.6.0]
-* [Adding support for running RCON commands on server]()
+* [Adding support for running RCON commands on server](https://github.com/Ubunfu/mc-steve/pull/26)
 
 ## [v1.5.0]
 * [Switching base docker image to node:14-slim](https://github.com/Ubunfu/mc-steve/pull/23)
