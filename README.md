@@ -15,6 +15,7 @@ Minecraft Steve can be called upon for help (or a snappy remark) by mentioning h
 * `start`: ***(Privileged)*** Starts a configured AWS-hosted Minecraft server
 * `stop`: ***(Privileged)*** Stops a configured AWS-hosted Minecraft server
 * `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related `<search terms>`.  The bot will respond to you by mention with a list of search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
+* `run <command>`: ***(Privileged)*** Runs a command on the server via the RCON protocol
 * `help`: Responds with the currently supported list of commands
 
 ## Setup
@@ -27,12 +28,17 @@ When hosting this application in a container or in the cloud, use that technolog
 * `DISCORD_TOKEN`: This is an OAuth token provisioned by Discord.  At a minimum, this token should have scopes [`bot`] and bot permissions: [`Send Messages`, `Read Message History`, `Add Reactions`].
 * `ROLE_START`: This is the name of a role defined within the Guild which permits starting the server.
 * `ROLE_STOP`: This is the name of a role defined within the Guild which permits stopping the server.
+* `ROLE_RCON`: This is the name of a role definied within the Guild which permits running RCON commands on the server.
 * `PRIV_GUILD`: This is the name of the Guild to which privileged command execution should be restricted.
 * `BOT_USERNAME`: This is the bot's username as known by Discord.  It should be set to `mc-steve`.
+* `SERVER_HOST`: The hostname resolving to the the game server.  It can be a DNS name.
 * `SERVER_REGION`: The region of the AWS hosted Minecraft server (e.g. `us-east-1`)
 * `SERVER_INSTANCE_ID`: The instance ID of the AWS hosted Minecraft server (e.g. `i-1g2b854552806c05e`)
 * `SERVER_KEY_ID`: Access Key ID of an AWS IAM user with sufficient privileges to start and stop EC2 instances.
 * `SERVER_SEC_KEY`: Secret Key ID of an AWS IAM user with sufficient privileges to start and stop EC2 instances.
+* `SERVER_RCON_PORT`: This is the port which the RCON service on the game server is listening on.
+* `SERVER_RCON_PASS`: This is the password used to authenticate with the RCON service running on the game server.
+* `SERVER_RCON_CONNECT_DELAY_MS`: A configurable number of milliseconds to wait after successfully connecting to the RCON service before sending the actual command.  500ms is probably fine, but it may need to be tweaked based on network latency.
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
