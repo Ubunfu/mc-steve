@@ -17,7 +17,9 @@ async function handleMention(msg) {
         await botCommands.tryStopServer(msg);
     } else if (msg.content == 'help') {
         await botCommands.giveHelp(msg);
-    } else {
+    } else if (msg.content.match(/^run (\w+)/)) {
+        await botCommands.rconCommand(msg);
+    }else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }
 }

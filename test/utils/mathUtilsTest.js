@@ -2,7 +2,7 @@ const expect = require('chai').expect;
 const mathUtils = require('../../src/utils/mathUtils.js');
 const sinon = require('sinon');
 
-describe('getRandomInt(max)', function() {
+describe('mathUtils.getRandomInt(max)', function() {
     describe('When Math.random() returns 0.5 and max == 10', function() {
         it('Returns 5', async function() {
             const mathStub = sinon.stub(Math, 'random').returns(0.5);

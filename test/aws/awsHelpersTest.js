@@ -5,7 +5,7 @@ const AWSSDK = require('aws-sdk');
 const sinon = require('sinon');
 const awsHelpersTestConstants = require('./awsHelpersTestConstants.js');
 
-describe('startServer(serverRegion, credsKeyId, credsSecretKey, serverId)', function() {
+describe('awsHelpers.startServer(serverRegion, credsKeyId, credsSecretKey, serverId)', function() {
     describe('When EC2 returns data', function() {
         beforeEach(function() {
             AWS.mock('EC2', 'startInstances', function(params, callback) {
@@ -63,7 +63,7 @@ describe('startServer(serverRegion, credsKeyId, credsSecretKey, serverId)', func
 
 });
 
-describe('stopServer(serverRegion, credsKeyId, credsSecretKey, serverId)', function() {
+describe('awsHelpers.stopServer(serverRegion, credsKeyId, credsSecretKey, serverId)', function() {
     describe('When EC2 returns data', function() {
         beforeEach(function() {
             AWS.mock('EC2', 'stopInstances', function(params, callback) {
