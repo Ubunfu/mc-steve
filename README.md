@@ -11,7 +11,7 @@ Minecraft Steve is a snarky Discord chat bot that hangs out in your Discord guil
 Steve must be deployed to a persistent environment (usually a cloud of your choice) and configured in order to work properly.  It is not currently offered as a service.
 
 ### Discord Setup & Authorization
-In order to participate in your Discord Guild, configured with a Discord API token.  Register a new application in the [Discord Developer Portal](https://discord.com/developers/applications) to generate an API token.  Create a bot-user as well, and select OAuth2 scopes and permissions to create a link you can use to invite your bot to your guild.  Select ***only*** the [`bot`] scope, and at least the following permissions: [`Send Messages`, `Read Message History`, `Add Reactions`].
+In order to participate in your Discord Guild, Steve must be registered and configured with a Discord API token.  Register a new application in the [Discord Developer Portal](https://discord.com/developers/applications) to generate an API token.  Create a bot-user as well, and select OAuth2 scopes and permissions to create a link you can use to invite your bot to your guild.  Select ***only*** the [`bot`] scope, and at least the following permissions: [`Send Messages`, `Read Message History`, `Add Reactions`].
 
 Open the generated link to invite your bot to your guild.
 
