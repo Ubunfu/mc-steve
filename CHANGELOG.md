@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [vTBD]
+* [Updating readme with better setup docs]()
+
 ## [v1.6.0]
 * [Adding support for running RCON commands on server](https://github.com/Ubunfu/mc-steve/pull/26)
 

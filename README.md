@@ -5,32 +5,37 @@
 ![Last Commit](https://img.shields.io/github/last-commit/Ubunfu/mc-steve?style=for-the-badge)
 [![Coveralls github](https://img.shields.io/coveralls/github/Ubunfu/mc-steve?logo=coveralls&style=for-the-badge)](https://coveralls.io/github/Ubunfu/mc-steve)
 
-Minecraft Steve is a snarky Discord chat bot hailing from the caves of Moria that hangs out in our Guild and occasionally helps out with things.
-
-## Usage
-Minecraft Steve can be called upon for help (or a snappy remark) by mentioning him by name (or nickname) in a message within the Discord Guild in which he is staying.  The message should take the form: `@[ mc-steve | NICKNAME ] COMMAND`.
-
-### Commands
-> ***(Privileged)*** denotes that the command is restricted to members invoking it from a configured Guild (PRIV_GUILD), and who have a configured role (i.e. ROLE_START, ROLE_STOP).
-* `start`: ***(Privileged)*** Starts a configured AWS-hosted Minecraft server
-* `stop`: ***(Privileged)*** Stops a configured AWS-hosted Minecraft server
-* `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related `<search terms>`.  The bot will respond to you by mention with a list of search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
-* `run <command>`: ***(Privileged)*** Runs a command on the server via the RCON protocol
-* `help`: Responds with the currently supported list of commands
+Minecraft Steve is a snarky Discord chat bot that hangs out in your Discord guild and helps out with adminstration of your AWS-hosted Minecraft server, and other Minecraft-related things. 
 
 ## Setup
-To work properly, Minecraft Steve needs to be configured by injecting some environment variables at runtime.  When working locally, you can keep these variables in a file named `.env` at the project root, with values defined in line-delimited, KV form (e.g. `KEY=VALUE`).  This file is already configured to be ignored in `.gitignore`.
+Steve must be deployed to a persistent environment (usually a cloud of your choice) and configured in order to work properly.  It is not currently offered as a service.
 
-> DO NOT LET YOUR `.env` FILE BE COMMITTED TO VERSION CONTROL
+### Discord Setup & Authorization
+In order to participate in your Discord Guild, configured with a Discord API token.  Register a new application in the [Discord Developer Portal](https://discord.com/developers/applications) to generate an API token.  Create a bot-user as well, and select OAuth2 scopes and permissions to create a link you can use to invite your bot to your guild.  Select ***only*** the [`bot`] scope, and at least the following permissions: [`Send Messages`, `Read Message History`, `Add Reactions`].
 
-When hosting this application in a container or in the cloud, use that technology / platform's means for injecting such configuration into the runtime.
+Open the generated link to invite your bot to your guild.
 
-* `DISCORD_TOKEN`: This is an OAuth token provisioned by Discord.  At a minimum, this token should have scopes [`bot`] and bot permissions: [`Send Messages`, `Read Message History`, `Add Reactions`].
+Once you've invited your bot to your guild, create the following roles:
+* A role for starting the server
+* A role for stopping your server
+* A role for running server commands
+
+These roles allow you to restrict access to certain potentially dangerous operations to specific members of your guild.  These roles don't need to have any Discord permissions associated with them - you can safely clear them all out.
+
+### Deployment
+Once the Discord API token is generated, you should be able to deploy the app as a Docker container wherever you like.  A free-plan Heroku worker dyno, a free-tier AWS EC2 instance, or a similar alternative are probably good options.
+
+There are pre-built Docker images hosted in our [GitHub Packages](https://github.com/Ubunfu/mc-steve/packages) that you can run, or you can build this project yourself with Docker and deploy the image.
+ 
+### Configuration
+To work properly, Minecraft Steve needs to be configured with the following environment variables:
+
+* `DISCORD_TOKEN`: This OAuth token provisioned by Discord.  
 * `ROLE_START`: This is the name of a role defined within the Guild which permits starting the server.
 * `ROLE_STOP`: This is the name of a role defined within the Guild which permits stopping the server.
 * `ROLE_RCON`: This is the name of a role definied within the Guild which permits running RCON commands on the server.
-* `PRIV_GUILD`: This is the name of the Guild to which privileged command execution should be restricted.
-* `BOT_USERNAME`: This is the bot's username as known by Discord.  It should be set to `mc-steve`.
+* `PRIV_GUILD`: This is the name of the Guild to which Steve is invited.  Privileged command execution will be restricted to this guild.
+* `BOT_USERNAME`: This is the name you assigned to the bot-user you generated in the [Discord Developer Portal](https://discord.com/developers/applications).
 * `SERVER_HOST`: The hostname resolving to the the game server.  It can be a DNS name.
 * `SERVER_REGION`: The region of the AWS hosted Minecraft server (e.g. `us-east-1`)
 * `SERVER_INSTANCE_ID`: The instance ID of the AWS hosted Minecraft server (e.g. `i-1g2b854552806c05e`)
@@ -42,7 +47,24 @@ When hosting this application in a container or in the cloud, use that technolog
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
+## Usage
+Minecraft Steve can be called upon for help (or a snappy remark) by @mentioning them by name (or nickname) in a message within the Discord Guild in which they are staying.  The message should take the form: `@[ mc-steve | NICKNAME ] COMMAND`.
+
+> Use Discord's tab-completion to reduce chance of typos when invoking Steve by @mention.
+
+### Commands
+> ***(Privileged)*** denotes that the command is restricted to members invoking it from a configured Guild (PRIV_GUILD), and who have a configured role (i.e. ROLE_START, ROLE_STOP).
+* `start`: ***(Privileged)*** Starts a configured AWS-hosted Minecraft server
+* `stop`: ***(Privileged)*** Stops a configured AWS-hosted Minecraft server
+* `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related to `<search terms>`.  Steve will respond with a few of the top search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
+* `run <command>`: ***(Privileged)*** Runs a command on the server via the RCON protocol
+* `help`: Responds with the currently supported list of commands
+
 ## Build and run locally
+When running locally, you can keep environment variables in a file named `.env` at the project root, with values defined in line-delimited, KV form (e.g. `KEY=VALUE`).  This file is already configured to be ignored in `.gitignore`.
+
+> DO NOT LET YOUR `.env` FILE BE COMMITTED TO VERSION CONTROL
+
 ### With Docker
 1. `docker build . -t mc-steve`
 2. `docker run --env-file .env mc-steve`
