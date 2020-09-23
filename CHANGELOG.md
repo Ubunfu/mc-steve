@@ -1,6 +1,10 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.6.1]
+* [Updating readme with better setup docs](https://github.com/Ubunfu/mc-steve/pull/29)
+* [Fixing app crashes if RCON commands fail](https://github.com/Ubunfu/mc-steve/pull/30)
+
 ## [v1.6.0]
 * [Adding support for running RCON commands on server](https://github.com/Ubunfu/mc-steve/pull/26)
 
