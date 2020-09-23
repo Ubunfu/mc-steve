@@ -17,6 +17,10 @@ rconClient.on('auth', function() {
     return resp;
 }).on('end', function() {
     console.log("Socket closed!");
+}).on('error', function(err) {
+    console.log("RCON error!");
+    console.log(err);
+    message.reply('The server didn\'t respond 😐')
 });
 
 function sleep(ms) {
