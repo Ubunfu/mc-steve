@@ -2,7 +2,7 @@
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
 ## [v1.7.0]
-* [Adding PlantUML component diagrams]()
+* [Adding PlantUML component diagrams](https://github.com/Ubunfu/mc-steve/pull/33)
 
 ## [v1.6.1]
 * [Updating readme with better setup docs](https://github.com/Ubunfu/mc-steve/pull/29)
