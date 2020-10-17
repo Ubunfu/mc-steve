@@ -1,0 +1,25 @@
+@startuml
+cloud Heroku {
+  node worker {
+    [mc-steve]
+  }
+}
+
+cloud Discord {
+  [Discord API]
+}
+
+cloud AWS {
+  node EC2 {
+    [minecraft server]
+  }
+  [EC2 API] --> EC2
+}
+
+[Discord Client] <--> [Discord API]
+
+[mc-steve] <--> [Discord API]
+
+[mc-steve] --> [minecraft server] : RCON
+[mc-steve] --> [EC2 API]
+@enduml
