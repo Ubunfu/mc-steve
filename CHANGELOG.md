@@ -1,6 +1,11 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.7.0]
+* [Adding PlantUML component diagrams](https://github.com/Ubunfu/mc-steve/pull/33)
+* [Adding standard GitHub bug report and feature request templates](https://github.com/Ubunfu/mc-steve/pull/32)
+* [Adding support for buying items](https://github.com/Ubunfu/mc-steve/pull/34)
+
 ## [v1.6.1]
 * [Updating readme with better setup docs](https://github.com/Ubunfu/mc-steve/pull/29)
 * [Fixing app crashes if RCON commands fail](https://github.com/Ubunfu/mc-steve/pull/30)

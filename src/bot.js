@@ -19,7 +19,9 @@ async function handleMention(msg) {
         await botCommands.giveHelp(msg);
     } else if (msg.content.match(/^run (\w+)/)) {
         await botCommands.rconCommand(msg);
-    }else {
+    } else if (msg.content.match(/^buy (\w+)/)) {
+        await botCommands.buyItem(msg);
+    } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }
 }

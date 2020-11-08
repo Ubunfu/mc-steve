@@ -90,8 +90,41 @@ async function searchMinecraftWikiForArticles(msg) {
     }
 }
 
+async function buyItem(msg) {
+    let messageContent = msg.content;
+    const messageOperands = messageContent.replace(/^buy/, '').trim();
+    const messageOperandWords = messageOperands.split(' ');
+    const playerName = messageOperandWords[0];
+    const itemQuantity = messageOperandWords[1];
+    const nameAndQuantRegex = new RegExp(`^${playerName} ${itemQuantity}`);
+    const itemName = messageOperands.replace(nameAndQuantRegex, '').trim();
+    const reqBody = {
+        player: playerName,
+        itemName: itemName,
+        quantity: parseInt(itemQuantity)
+    };
+    try {
+        console.log('Request: ' + JSON.stringify(reqBody));
+        const resp = await axios.post(process.env.SERVICE_SHOP_URL,reqBody);
+        console.log(`Response: HTTP ${resp.status}`);
+        msg.reply('Purchase successful');
+    } catch (err) {
+        console.log('Error purchasing items:');
+        console.log('Response: HTTP ' 
+            + err.response.status + ': ' 
+            + JSON.stringify(err.response.data));
+        const errorReply = 'Purchase failed: '
+            + '\`\`\`'
+            + `HTTP ${err.response.status}: `
+            + JSON.stringify(err.response.data)
+            + '\`\`\`';
+        msg.reply(errorReply);
+    }
+}
+
 exports.giveHelp = giveHelp;
 exports.tryStartServer = tryStartServer;
 exports.tryStopServer = tryStopServer;
 exports.searchMinecraftWikiForArticles = searchMinecraftWikiForArticles;
 exports.rconCommand = rconCommand;
+exports.buyItem = buyItem;
