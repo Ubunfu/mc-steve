@@ -44,6 +44,7 @@ To work properly, Minecraft Steve needs to be configured with the following envi
 * `SERVER_RCON_PORT`: This is the port which the RCON service on the game server is listening on.
 * `SERVER_RCON_PASS`: This is the password used to authenticate with the RCON service running on the game server.
 * `SERVER_RCON_CONNECT_DELAY_MS`: A configurable number of milliseconds to wait after successfully connecting to the RCON service before sending the actual command.  500ms is probably fine, but it may need to be tweaked based on network latency.
+* `SERVICE_SHOP_URL`: The URL of the [Mc-Shop](https://github.com/Ubunfu/mc-shop) Buy Item service.
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
@@ -59,6 +60,7 @@ Minecraft Steve can be called upon for help (or a snappy remark) by @mentioning 
 * `search <search terms>`: Searches the [Minecraft Fandom Wiki](https://minecraft.fandom.com) for articles related to `<search terms>`.  Steve will respond with a few of the top search results containing the title of the wiki article, a direct link to it, and a short snippet from the content.
 * `run <command>`: ***(Privileged)*** Runs a command on the server via the RCON protocol
 * `help`: Responds with the currently supported list of commands
+* `buy <username> <quantity> <itemName>`: Attempts to purchase a quantity of the given items for the given player.
 
 ## Build and run locally
 When running locally, you can keep environment variables in a file named `.env` at the project root, with values defined in line-delimited, KV form (e.g. `KEY=VALUE`).  This file is already configured to be ignored in `.gitignore`.
