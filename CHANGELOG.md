@@ -5,6 +5,7 @@ This project attempts to conform to [SemVer](https://semver.org/) guidelines whe
 * [Adding PlantUML component diagrams](https://github.com/Ubunfu/mc-steve/pull/33)
 * [Adding standard GitHub bug report and feature request templates](https://github.com/Ubunfu/mc-steve/pull/32)
 * [Adding support for buying items](https://github.com/Ubunfu/mc-steve/pull/34)
+* [Updating help command menu with buy command](https://github.com/Ubunfu/mc-steve/pull/36)
 
 ## [v1.6.1]
 * [Updating readme with better setup docs](https://github.com/Ubunfu/mc-steve/pull/29)
