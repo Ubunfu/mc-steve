@@ -9,7 +9,6 @@ describe('botCommands.buyItem(msg)', function() {
         let replyStub;
         let message = new discord.Message();
         message.content = 'buy player1 5 Cobblestone';
-        message.author = {username: 'player1'};
 
         beforeEach(function() {
             replyStub = sinon

@@ -21,6 +21,8 @@ async function handleMention(msg) {
         await botCommands.rconCommand(msg);
     } else if (msg.content.match(/^buy (\w+)/)) {
         await botCommands.buyItem(msg);
+    } else if (msg.content.match(/^price (\w+)/)) {
+        await botCommands.getItem(msg);
     } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }

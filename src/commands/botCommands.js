@@ -105,7 +105,7 @@ async function buyItem(msg) {
     };
     try {
         console.log('Request: ' + JSON.stringify(reqBody));
-        const resp = await axios.post(process.env.SERVICE_SHOP_URL,reqBody);
+        const resp = await axios.post(process.env.SERVICE_SHOP_BUY_ITEM_URL,reqBody);
         console.log(`Response: HTTP ${resp.status}`);
         msg.reply('Purchase successful');
     } catch (err) {
@@ -122,9 +122,38 @@ async function buyItem(msg) {
     }
 }
 
+async function getItem(msg) {
+    let messageContent = msg.content;
+    const itemName = messageContent.replace(/^price/, '').trim();
+    const reqParams = {
+        params: {
+            item: itemName
+        }
+    }
+    try {
+        console.log(`Retrieving item: ${itemName}`);
+        const resp = await axios.get(process.env.SERVICE_SHOP_GET_ITEM_URL,reqParams);
+        console.log(`Response: HTTP ${resp.status}`);
+        msg.reply(`${itemName} is valued at ${resp.data.price}`);
+    } catch (err) {
+        console.log('Error getting item:');
+        console.log('Response: HTTP ' 
+            + err.response.status + ': ' 
+            + JSON.stringify(err.response.data));
+        const errorReply = 'Price check failed: '
+            + '\`\`\`'
+            + `HTTP ${err.response.status}: `
+            + JSON.stringify(err.response.data)
+            + '\`\`\`';
+        msg.reply(errorReply);
+    }
+
+}
+
 exports.giveHelp = giveHelp;
 exports.tryStartServer = tryStartServer;
 exports.tryStopServer = tryStopServer;
 exports.searchMinecraftWikiForArticles = searchMinecraftWikiForArticles;
 exports.rconCommand = rconCommand;
 exports.buyItem = buyItem;
+exports.getItem = getItem;
