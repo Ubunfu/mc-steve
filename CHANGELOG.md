@@ -2,7 +2,7 @@
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
 ## [v1.8.0]
-* [Adding price check command]()
+* [Adding price check command](https://github.com/Ubunfu/mc-steve/pull/38)
 
 ## [v1.7.0]
 * [Adding PlantUML component diagrams](https://github.com/Ubunfu/mc-steve/pull/33)
