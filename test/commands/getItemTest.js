@@ -11,6 +11,15 @@ const RESP_GET_ITEM_200 = {
         price: 100
     }
 }
+const RESP_GET_ITEM_500 = {
+    response: {
+        status: 500,
+        data: {
+            error: 'error',
+            errorDetail: 'error details'
+        }
+    }
+}
 
 describe('botCommands.getItem(msg)', function() {
     describe('When get item is requested', function() {
@@ -42,15 +51,7 @@ describe('botCommands.getItem(msg)', function() {
 
         describe('And Mc-Shop API fails', function() {
             it('Replies with correct error message', async function() {
-                const apiMock = sinon.stub(axios, "get").throws({
-                    response: {
-                        status: 500,
-                        data: {
-                            error: 'error',
-                            errorDetail: 'error details'
-                        }
-                    }
-                });
+                const apiMock = sinon.stub(axios, "get").throws(RESP_GET_ITEM_500);
                 await botCommands.getItem(message);
                 expect(replyStub.calledOnce).to.be.true;
                 expect(replyStub.lastCall.args[0]).to.be.equal('Price check failed: ```HTTP 500: {"error":"error","errorDetail":"error details"}```');
