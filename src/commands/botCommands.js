@@ -147,7 +147,33 @@ async function getItem(msg) {
             + '\`\`\`';
         msg.reply(errorReply);
     }
+}
 
+async function getWallet(msg) {
+    let messageContent = msg.content;
+    const userName = messageContent.replace(/^wallet/, '').trim();
+    const reqParams = {
+        params: {
+            id: userName
+        }
+    }
+    try {
+        console.log(`Retrieving wallet: ${userName}`);
+        const resp = await axios.get(process.env.SERVICE_WALLET_GET_WALLET_URL,reqParams);
+        console.log(`Response: HTTP ${resp.status}`);
+        msg.reply(`${userName} has ${resp.data.Balance} in their wallet`);
+    } catch (err) {
+        console.log('Error getting wallet:');
+        console.log('Response: HTTP ' 
+            + err.response.status + ': ' 
+            + JSON.stringify(err.response.data));
+        const errorReply = 'Failed to check wallet: '
+            + '\`\`\`'
+            + `HTTP ${err.response.status}: `
+            + JSON.stringify(err.response.data)
+            + '\`\`\`';
+        msg.reply(errorReply);
+    }
 }
 
 exports.giveHelp = giveHelp;
@@ -157,3 +183,4 @@ exports.searchMinecraftWikiForArticles = searchMinecraftWikiForArticles;
 exports.rconCommand = rconCommand;
 exports.buyItem = buyItem;
 exports.getItem = getItem;
+exports.getWallet = getWallet;

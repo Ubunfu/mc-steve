@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.9.0]
+* [Adding wallet balance check command](https://github.com/Ubunfu/mc-steve/pull/40)
+
 ## [v1.8.0]
 * [Adding price check command](https://github.com/Ubunfu/mc-steve/pull/38)
 
