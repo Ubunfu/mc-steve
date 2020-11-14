@@ -15,6 +15,7 @@ const HELP_MESSAGE = 'This is what I can do: \n'
     + '* `run <command>`: I\'ll run a command on the server\n'
     + '* `buy <username> <quantity> <itemName>`: I\'ll buy items for you from the Shop\n'
     + '* `price <itemName>`: I\'ll price check an item from the Shop\n'
+    + '* `wallet <username>`: I\'ll check how much money you have in your wallet\n'
     + '* `help`: Show this help, since as it stands you can\'t do anything for yourself';
 
 const EMPTY_SEARCH_RESULTS_MESSAGE = "No results!";
