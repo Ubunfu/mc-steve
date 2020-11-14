@@ -46,6 +46,7 @@ To work properly, Minecraft Steve needs to be configured with the following envi
 * `SERVER_RCON_CONNECT_DELAY_MS`: A configurable number of milliseconds to wait after successfully connecting to the RCON service before sending the actual command.  500ms is probably fine, but it may need to be tweaked based on network latency.
 * `SERVICE_SHOP_BUY_ITEM_URL`: The URL of the [Mc-Shop](https://github.com/Ubunfu/mc-shop) Buy Item service.
 * `SERVICE_SHOP_GET_ITEM_URL`: The URL of the [Mc-Shop](https://github.com/Ubunfu/mc-shop) Get Item service.
+* `SERVICE_WALLET_GET_WALLET_URL`: The URL of the [Mc-Wallet](https://github.com/Ubunfu/mc-wallet) Get Wallet service.
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
