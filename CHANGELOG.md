@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.10.0]
+* [Adding item sell command](https://github.com/Ubunfu/mc-steve/pull/42)
+
 ## [v1.9.0]
 * [Adding wallet balance check command](https://github.com/Ubunfu/mc-steve/pull/40)
 

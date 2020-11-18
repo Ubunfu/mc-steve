@@ -13,9 +13,10 @@ const HELP_MESSAGE = 'This is what I can do: \n'
     + '* `stop`: I\'ll stop our Minecraft server \n'
     + '* `search <search terms>`: I\'ll search the Minecraft Wiki\n'
     + '* `run <command>`: I\'ll run a command on the server\n'
-    + '* `buy <username> <quantity> <itemName>`: I\'ll buy items for you from the Shop\n'
-    + '* `price <itemName>`: I\'ll price check an item from the Shop\n'
     + '* `wallet <username>`: I\'ll check how much money you have in your wallet\n'
+    + '* `price <itemName>`: I\'ll price check an item from the Shop\n'
+    + '* `buy <username> <quantity> <itemName>`: I\'ll buy you items from the Shop\n'
+    + '* `sell <username> <quantity> <itemName>`: I\'ll sell your items to the Shop\n'
     + '* `help`: Show this help, since as it stands you can\'t do anything for yourself';
 
 const EMPTY_SEARCH_RESULTS_MESSAGE = "No results!";

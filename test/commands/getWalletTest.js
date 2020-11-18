@@ -59,7 +59,7 @@ describe('botCommands.getWallet(msg)', function() {
                 apiMock.restore();
             });
         });
-        describe('And Mc-Shop API succeeds', function() {
+        describe('And Mc-Wallet API succeeds', function() {
             it('Replies with correct message', async function() {
                 const apiMock = sinon.stub(axios, "get").returns(RESP_GET_WALLET_200);
                 await botCommands.getWallet(message);
