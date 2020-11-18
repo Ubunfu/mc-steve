@@ -176,6 +176,38 @@ async function getWallet(msg) {
     }
 }
 
+async function sellItem(msg) {
+    let messageContent = msg.content;
+    const messageOperands = messageContent.replace(/^sell/, '').trim();
+    const messageOperandWords = messageOperands.split(' ');
+    const playerName = messageOperandWords[0];
+    const itemQuantity = messageOperandWords[1];
+    const nameAndQuantRegex = new RegExp(`^${playerName} ${itemQuantity}`);
+    const itemName = messageOperands.replace(nameAndQuantRegex, '').trim();
+    const reqBody = {
+        player: playerName,
+        itemName: itemName,
+        quantity: parseInt(itemQuantity)
+    };
+    try {
+        console.log('Request: ' + JSON.stringify(reqBody));
+        const resp = await axios.post(process.env.SERVICE_SHOP_SELL_ITEM_URL,reqBody);
+        console.log(`Response: HTTP ${resp.status}`);
+        msg.reply('Sale request submitted');
+    } catch (err) {
+        console.log('Error purchasing items:');
+        console.log('Response: HTTP ' 
+            + err.response.status + ': ' 
+            + JSON.stringify(err.response.data));
+        const errorReply = 'Item sale failed: '
+            + '\`\`\`'
+            + `HTTP ${err.response.status}: `
+            + JSON.stringify(err.response.data)
+            + '\`\`\`';
+        msg.reply(errorReply);
+    }
+}
+
 exports.giveHelp = giveHelp;
 exports.tryStartServer = tryStartServer;
 exports.tryStopServer = tryStopServer;
@@ -184,3 +216,4 @@ exports.rconCommand = rconCommand;
 exports.buyItem = buyItem;
 exports.getItem = getItem;
 exports.getWallet = getWallet;
+exports.sellItem = sellItem;
