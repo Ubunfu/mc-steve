@@ -1,6 +1,8 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v1.11.0]
+* [Modularly including purchase and/or sell price in get item response](https://github.com/Ubunfu/mc-steve/pull/44)
 ## [v1.10.0]
 * [Adding item sell command](https://github.com/Ubunfu/mc-steve/pull/42)
 
