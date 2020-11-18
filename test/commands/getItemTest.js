@@ -11,6 +11,21 @@ const RESP_GET_ITEM_200 = {
         price: 100
     }
 }
+const RESP_GET_ITEM_SELLABLE_200 = {
+    status: 200,
+    data: {
+        itemName: 'Iron Ingot',
+        price: 100,
+        sellPrice: 10
+    }
+}
+const RESP_GET_ITEM_ONLY_SELLABLE_200 = {
+    status: 200,
+    data: {
+        itemName: 'Iron Ingot',
+        sellPrice: 10
+    }
+}
 const RESP_GET_ITEM_500 = {
     response: {
         status: 500,
@@ -59,12 +74,32 @@ describe('botCommands.getItem(msg)', function() {
             });
         });
         describe('And Mc-Shop API succeeds', function() {
-            it('Replies with correct message', async function() {
-                const apiMock = sinon.stub(axios, "get").returns(RESP_GET_ITEM_200);
-                await botCommands.getItem(message);
-                expect(replyStub.calledOnce).to.be.true;
-                expect(replyStub.lastCall.args[0]).to.be.equal('Iron Ingot is valued at 100');
-                apiMock.restore();
+            describe('And item is only purchasable', function() {
+                it('Replies with correct message', async function() {
+                    const apiMock = sinon.stub(axios, "get").returns(RESP_GET_ITEM_200);
+                    await botCommands.getItem(message);
+                    expect(replyStub.calledOnce).to.be.true;
+                    expect(replyStub.lastCall.args[0]).to.be.equal('Iron Ingot can be purchased for 100.');
+                    apiMock.restore();
+                });
+            });
+            describe('And item is only sellable', function() {
+                it('Replies with correct message', async function() {
+                    const apiMock = sinon.stub(axios, "get").returns(RESP_GET_ITEM_ONLY_SELLABLE_200);
+                    await botCommands.getItem(message);
+                    expect(replyStub.calledOnce).to.be.true;
+                    expect(replyStub.lastCall.args[0]).to.be.equal('Iron Ingot can be sold for 10.');
+                    apiMock.restore();
+                });
+            });
+            describe('And item is purchasable and sellable', function() {
+                it('Replies with correct message', async function() {
+                    const apiMock = sinon.stub(axios, "get").returns(RESP_GET_ITEM_SELLABLE_200);
+                    await botCommands.getItem(message);
+                    expect(replyStub.calledOnce).to.be.true;
+                    expect(replyStub.lastCall.args[0]).to.be.equal('Iron Ingot can be purchased for 100.  Iron Ingot can be sold for 10.');
+                    apiMock.restore();
+                });
             });
         });
     });
