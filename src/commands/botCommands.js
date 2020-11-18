@@ -134,7 +134,7 @@ async function getItem(msg) {
         console.log(`Retrieving item: ${itemName}`);
         const resp = await axios.get(process.env.SERVICE_SHOP_GET_ITEM_URL,reqParams);
         console.log(`Response: HTTP ${resp.status}`);
-        msg.reply(`${itemName} is valued at ${resp.data.price}`);
+        await processGetItemResponse(msg, resp.data);
     } catch (err) {
         console.log('Error getting item:');
         console.log('Response: HTTP ' 
@@ -147,6 +147,17 @@ async function getItem(msg) {
             + '\`\`\`';
         msg.reply(errorReply);
     }
+}
+
+async function processGetItemResponse(msg, item) {
+    let responseMessage = '';
+    if (item.price) {
+        responseMessage = responseMessage + `${item.itemName} can be purchased for ${item.price}.  `;
+    }
+    if (item.sellPrice) {
+        responseMessage = responseMessage + `${item.itemName} can be sold for ${item.sellPrice}.  `;
+    }
+    msg.reply(responseMessage.trim());
 }
 
 async function getWallet(msg) {
