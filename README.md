@@ -48,6 +48,7 @@ To work properly, Minecraft Steve needs to be configured with the following envi
 * `SERVICE_SHOP_BUY_ITEM_URL`: The URL of the [Mc-Shop](https://github.com/Ubunfu/mc-shop) Buy Item service.
 * `SERVICE_SHOP_SELL_ITEM_URL`: The URL of the [Mc-Shop](https://github.com/Ubunfu/mc-shop) Sell Item service.
 * `SERVICE_WALLET_GET_WALLET_URL`: The URL of the [Mc-Wallet](https://github.com/Ubunfu/mc-wallet) Get Wallet service.
+* `SERVICE_USERS_GET_USER_URL`: The URL of the [Mc-User](https://github.com/Ubunfu/mc-user) Get User service.
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
@@ -64,10 +65,9 @@ Minecraft Steve can be called upon for help (or a snappy remark) by @mentioning 
 * `run <command>`: ***(Privileged)*** Runs a command on the server via the RCON protocol
 * `wallet <username>`: Checks the balance of a player's wallet
 * `price <itemName>`: Checks the purchase price of an item in the Shop
-* `buy <username> <quantity> <itemName>`: Purchase items for a player by charging their wallet and adding the item(s) to their in-game inventory
-* `sell <username> <quantity> <itemName>`: Sell items for a player by attempting to remove the item(s) from their in-game inventory and charging their wallet for the items which were removed
+* `buy <quantity> <itemName>`: Purchase items for a player by charging their wallet and adding the item(s) to their in-game inventory
+* `sell <quantity> <itemName>`: Sell items for a player by attempting to remove the item(s) from their in-game inventory and charging their wallet for the items which were removed
 * `help`: Responds with the currently supported list of commands
-* `buy <username> <quantity> <itemName>`: Attempts to purchase a quantity of the given items for the given player.
 
 ## Build and run locally
 When running locally, you can keep environment variables in a file named `.env` at the project root, with values defined in line-delimited, KV form (e.g. `KEY=VALUE`).  This file is already configured to be ignored in `.gitignore`.
