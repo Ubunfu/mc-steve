@@ -1,6 +1,6 @@
 {
   "name": "mc-steve",
-  "version": "1.11.0",
+  "version": "2.0.0",
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive test/",
