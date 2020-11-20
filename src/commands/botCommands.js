@@ -106,6 +106,7 @@ async function buyItem(msg) {
             msg.reply('I didn\'t find a Minecraft username associated with your Discord '
                 + 'handle.  One must be registered before you can purchase or sell items.');
         } else {
+            console.log(`[botCommands] Error calling mc-user API: ${err.message}`);
             msg.reply('I wasn\'t able to look up your Minecraft username.  Please try again.');
         }
     }
@@ -219,6 +220,7 @@ async function sellItem(msg) {
             msg.reply('I didn\'t find a Minecraft username associated with your Discord '
                 + 'handle.  One must be registered before you can purchase or sell items.');
         } else {
+            console.log(`[botCommands] Error calling mc-user API: ${err.message}`);
             msg.reply('I wasn\'t able to look up your Minecraft username.  Please try again.');
         }
     }
