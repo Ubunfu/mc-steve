@@ -6,7 +6,7 @@ async function getUser(discordUsername) {
             process.env.SERVICE_USERS_GET_USER_URL,
             {
                 params: {
-                    discordId: discordUsername
+                    discordUser: discordUsername
                 }
             });
         return apiResp.data;

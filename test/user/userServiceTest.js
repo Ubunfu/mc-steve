@@ -41,7 +41,7 @@ describe('userService: When get user is called', function() {
         const getUserMock = sinon.stub(axios, "get").returns(RESP_GET_USER_200);
         const REQ_PARAMS_GET_USER_EXPECTED = {
             params: {
-                discordId: 'dUser'
+                discordUser: 'dUser'
             }
         }
         await userService.getUser('dUser');
