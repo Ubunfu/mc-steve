@@ -4,6 +4,7 @@ const botUtilsConstants = require('../utils/botUtilsConstants.js');
 const botAuthenticator = require('../authenticator/botAuthenticator.js');
 const awsHelpers = require('../aws/awsHelpers.js');
 const rconClient = require('../rcon/rconClient.js');
+const userService = require('../../src/user/userService.js');
 
 async function giveHelp(msg) {
     msg.reply(botUtilsConstants.HELP_MESSAGE);
@@ -94,15 +95,31 @@ async function buyItem(msg) {
     let messageContent = msg.content;
     const messageOperands = messageContent.replace(/^buy/, '').trim();
     const messageOperandWords = messageOperands.split(' ');
-    const playerName = messageOperandWords[0];
-    const itemQuantity = messageOperandWords[1];
-    const nameAndQuantRegex = new RegExp(`^${playerName} ${itemQuantity}`);
+    const itemQuantity = messageOperandWords[0];
+    const nameAndQuantRegex = new RegExp(`^${itemQuantity}`);
     const itemName = messageOperands.replace(nameAndQuantRegex, '').trim();
-    const reqBody = {
-        player: playerName,
-        itemName: itemName,
-        quantity: parseInt(itemQuantity)
-    };
+    let user;
+    try {
+        user = await userService.getUser(msg.author.username);
+    } catch (err) {
+        if (err.message == 'user not found') {
+            msg.reply('I didn\'t find a Minecraft username associated with your Discord '
+                + 'handle.  One must be registered before you can purchase or sell items.');
+        } else {
+            msg.reply('I wasn\'t able to look up your Minecraft username.  Please try again.');
+        }
+    }
+    if (user) {
+        const reqBody = {
+            player: user.minecraftUser,
+            itemName: itemName,
+            quantity: parseInt(itemQuantity)
+        };
+        await sendBuyItemReq(msg, reqBody);
+    }
+}
+
+async function sendBuyItemReq(msg, reqBody) {
     try {
         console.log('Request: ' + JSON.stringify(reqBody));
         const resp = await axios.post(process.env.SERVICE_SHOP_BUY_ITEM_URL,reqBody);
@@ -191,15 +208,31 @@ async function sellItem(msg) {
     let messageContent = msg.content;
     const messageOperands = messageContent.replace(/^sell/, '').trim();
     const messageOperandWords = messageOperands.split(' ');
-    const playerName = messageOperandWords[0];
-    const itemQuantity = messageOperandWords[1];
-    const nameAndQuantRegex = new RegExp(`^${playerName} ${itemQuantity}`);
+    const itemQuantity = messageOperandWords[0];
+    const nameAndQuantRegex = new RegExp(`^${itemQuantity}`);
     const itemName = messageOperands.replace(nameAndQuantRegex, '').trim();
-    const reqBody = {
-        player: playerName,
-        itemName: itemName,
-        quantity: parseInt(itemQuantity)
-    };
+    let user;
+    try {
+        user = await userService.getUser(msg.author.username);
+    } catch (err) {
+        if (err.message == 'user not found') {
+            msg.reply('I didn\'t find a Minecraft username associated with your Discord '
+                + 'handle.  One must be registered before you can purchase or sell items.');
+        } else {
+            msg.reply('I wasn\'t able to look up your Minecraft username.  Please try again.');
+        }
+    }
+    if (user) {
+        const reqBody = {
+            player: user.minecraftUser,
+            itemName: itemName,
+            quantity: parseInt(itemQuantity)
+        };
+        await sendSellItemReq(msg, reqBody);
+    }
+}
+
+async function sendSellItemReq(msg, reqBody) {
     try {
         console.log('Request: ' + JSON.stringify(reqBody));
         const resp = await axios.post(process.env.SERVICE_SHOP_SELL_ITEM_URL,reqBody);
