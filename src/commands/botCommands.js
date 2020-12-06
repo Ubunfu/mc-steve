@@ -5,6 +5,7 @@ const botAuthenticator = require('../authenticator/botAuthenticator.js');
 const awsHelpers = require('../aws/awsHelpers.js');
 const rconClient = require('../rcon/rconClient.js');
 const userService = require('../../src/user/userService.js');
+const walletService = require('../../src/wallet/walletService.js');
 
 async function giveHelp(msg) {
     msg.reply(botUtilsConstants.HELP_MESSAGE);
@@ -254,6 +255,37 @@ async function sendSellItemReq(msg, reqBody) {
     }
 }
 
+async function payPlayer(msg) {
+    let messageContent = msg.content;
+    const messageOperands = messageContent.replace(/^pay/, '').trim();
+    const messageOperandWords = messageOperands.split(' ');
+    const payee = messageOperandWords[0];
+    const amount = parseInt(messageOperandWords[1]);
+
+    let user;
+    try {
+        user = await userService.getUser(msg.author.username);
+    } catch (err) {
+        if (err.message == 'user not found') {
+            msg.reply('I didn\'t find a Minecraft username associated with your Discord '
+                + 'handle.  One must be registered before you can pay players.');
+        } else {
+            console.log(`[botCommands] Error calling mc-user API: ${JSON.stringify(err.response)}`);
+            msg.reply('I wasn\'t able to look up your Minecraft username.  Please try again.');
+        }
+    }
+
+    if (user) {
+        const payer = user.minecraftUser;
+        try {
+            await walletService.payPlayer(payer, payee, amount);
+            msg.reply(`${payer} paid ${payee} ${amount}`);
+        } catch (err) {
+            msg.reply(`Payment failed because: ${err.message}`);
+        }
+    }
+}
+
 exports.giveHelp = giveHelp;
 exports.tryStartServer = tryStartServer;
 exports.tryStopServer = tryStopServer;
@@ -263,3 +295,4 @@ exports.buyItem = buyItem;
 exports.getItem = getItem;
 exports.getWallet = getWallet;
 exports.sellItem = sellItem;
+exports.payPlayer = payPlayer;
