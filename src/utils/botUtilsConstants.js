@@ -5,7 +5,14 @@ const UNKNOWN_COMMAND_REPLIES = [
     'What?...',
     'What is that, some kind of sex thing?...',
     'I see you, but all I hear is circus music',
-    'What do you want?'
+    'What do you want?',
+    'If you can\'t say something nice, don\'t say anything at all...',
+    'I like you. You remind me of me when I was young and stupid.',
+    'I see you\'ve set aside this special time to humiliate yourself in public.',
+    'I refuse to have a battle of wits with an unarmed person.',
+    'How about never? Is never good for you?',
+    'Don\'t worry. I forgot your name, too.',
+    'I\'ll try being nicer if you\'ll try being smarter.'
 ];
 
 const HELP_MESSAGE = 'This is what I can do: \n'
@@ -17,6 +24,7 @@ const HELP_MESSAGE = 'This is what I can do: \n'
     + '* `price <itemName>`: I\'ll price check an item from the Shop\n'
     + '* `buy <quantity> <itemName>`: I\'ll buy you items from the Shop\n'
     + '* `sell <quantity> <itemName>`: I\'ll sell your items to the Shop\n'
+    + '* `pay <username> <amount>`: I\'ll pay another player from your wallet\n'
     + '* `help`: Show this help, since as it stands you can\'t do anything for yourself';
 
 const EMPTY_SEARCH_RESULTS_MESSAGE = "No results!";

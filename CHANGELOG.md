@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v2.1.0]
+* [Allow player2player payments](https://github.com/Ubunfu/mc-steve/pull/48)
+
 ## [v2.0.0]
 * [Looking up Minecraft usernames for the Shop commands](https://github.com/Ubunfu/mc-steve/pull/46)
 

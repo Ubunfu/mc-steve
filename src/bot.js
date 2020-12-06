@@ -27,6 +27,8 @@ async function handleMention(msg) {
         await botCommands.getWallet(msg);
     } else if (msg.content.match(/^sell (\w+)/)) {
         await botCommands.sellItem(msg);
+    } else if (msg.content.match(/^pay (\w+)/)) {
+        await botCommands.payPlayer(msg);
     } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }
