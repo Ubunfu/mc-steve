@@ -1,0 +1,18 @@
+@startuml sequence_help
+
+title Sequence: Show Help Menu
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve help
+DiscordGuild -> McSteve: sendEvent(message)
+DiscordGuild <- McSteve: reply(helpText)
+@enduml

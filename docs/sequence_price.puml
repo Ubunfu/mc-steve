@@ -1,0 +1,25 @@
+@startuml sequence_price
+
+title Sequence: Check Item Prices
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve price <itemName>
+DiscordGuild -> McSteve: sendEvent(message)
+McSteve -> McShop: GET /item (itemName)
+alt item returned
+    McSteve <-- McShop: HTTP 200 (item)
+    DiscordGuild <- McSteve: reply(itemPriceDetails)
+else failure
+    McSteve <-- McShop: HTTP 4xx/5xx (error)
+    DiscordGuild <- McSteve: reply(failure: error)
+end
+@enduml

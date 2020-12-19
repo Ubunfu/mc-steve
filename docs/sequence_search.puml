@@ -1,0 +1,29 @@
+@startuml sequence_search
+
+title Sequence: Search Minecraft Wiki
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve search <terms>
+DiscordGuild -> McSteve: sendEvent(message)
+
+McSteve -> "Fandom Wiki API": GET /api/v1/Search/List (<terms>)
+alt success response
+    McSteve <-- "Fandom Wiki API": HTTP 200 (searchResults)
+    DiscordGuild <- McSteve: reply(searchResults)
+else unexpected response structure
+    McSteve <-- "Fandom Wiki API": HTTP 200
+    DiscordGuild <- McSteve: reply(unknownResponse)
+else error response
+    McSteve <-- "Fandom Wiki API": HTTP 4xx/5xx
+    DiscordGuild <- McSteve: reply(errorResponse)
+end
+@enduml
