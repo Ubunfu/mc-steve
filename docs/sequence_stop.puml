@@ -1,4 +1,4 @@
-@startuml sequence_stop-server
+@startuml sequence_stop
 
 title Sequence: Stop Server
 

@@ -1,4 +1,4 @@
-@startuml sequence_start-server
+@startuml sequence_start
 
 title Sequence: Start Server
 

@@ -1,6 +1,6 @@
-@startuml sequence_start-server
+@startuml sequence_search
 
-title Sequence: Start Server
+title Sequence: Search Minecraft Wiki
 
 actor GuildMember
 collections DiscordGuild
