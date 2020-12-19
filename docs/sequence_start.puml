@@ -1,0 +1,36 @@
+@startuml sequence_start-server
+
+title Sequence: Start Server
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve start
+DiscordGuild -> McSteve: sendEvent(message)
+McSteve -> McSteve: msgFromGuild(guildName) \n && authorHasRole(role) ?
+alt true (allowed)
+    McSteve -> "AWS EC2 API": startInstance(instanceId)
+    alt server is starting
+        McSteve <-- "AWS EC2 API": responseState("starting") || responseState("pending")
+        DiscordGuild <- McSteve: reply(startingServer)
+    else server already running
+        McSteve <-- "AWS EC2 API": responseState("running")
+        DiscordGuild <- McSteve: reply(serverAlreadyRunning)
+    else unexpected EC2 response
+        McSteve <-- "AWS EC2 API": responseState(<other>)
+        DiscordGuild <- McSteve: reply(couldNotStartServer)
+    else error from EC2
+        McSteve <-- "AWS EC2 API": ERROR
+        DiscordGuild <- McSteve: reply(technicalProblem)
+    end
+else false (not allowed)
+    DiscordGuild <- McSteve: reply(cmdNotAllowed)
+end
+@enduml

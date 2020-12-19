@@ -1,0 +1,30 @@
+@startuml sequence_run
+
+title Sequence: Run Server Command
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve run <cmd>
+DiscordGuild -> McSteve: sendEvent(message)
+McSteve -> McSteve: msgFromGuild(guildName) \n && authorHasRole(role) ?
+alt true (allowed)
+    McSteve -> GameServer: rcon.sendCmd(<cmd>)
+    alt server responds
+        McSteve <-- GameServer: cmdResponse
+        DiscordGuild <- McSteve: reply(cmdResponse)
+    else server does not respond
+        McSteve <-- GameServer: ERROR
+        DiscordGuild <- McSteve: reply(noResponseError)
+    end
+else false (not allowed)
+    DiscordGuild <- McSteve: reply(cmdNotAllowed)
+end
+@enduml

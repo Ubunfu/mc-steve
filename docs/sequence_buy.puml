@@ -1,0 +1,37 @@
+@startuml sequence_buy
+
+title Sequence: Buy Item(s)
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve buy <quantity> <itemName>
+DiscordGuild -> McSteve: sendEvent(message)
+
+McSteve -> McUser: GET /user (message.author.username)
+alt user found
+    McSteve <-- McUser: user
+else user not found
+    McSteve <-- McUser: HTTP 404
+    DiscordGuild <- McSteve: reply(userNotFound)
+else error
+    McSteve <-- McUser: HTTP 4xx/5xx
+    DiscordGuild <- McSteve: reply(errorTryAgain)
+end
+
+McSteve -> McShop: POST /item/buy (mcUsername, itemName, quantity)
+alt async request posted
+    McSteve <-- McShop: HTTP 200 (item)
+    DiscordGuild <- McSteve: reply(requestPosted)
+else failure
+    McSteve <-- McShop: HTTP 4xx/5xx (error)
+    DiscordGuild <- McSteve: reply(purchaseFailed)
+end
+@enduml

@@ -1,0 +1,36 @@
+@startuml sequence_stop-server
+
+title Sequence: Stop Server
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve stop
+DiscordGuild -> McSteve: sendEvent(message)
+McSteve -> McSteve: msgFromGuild(guildName) \n && authorHasRole(role) ?
+alt true (allowed)
+    McSteve -> "AWS EC2 API": stopInstance(instanceId)
+    alt server is stopping
+        McSteve <-- "AWS EC2 API": responseState("stopping")
+        DiscordGuild <- McSteve: reply(stoppingServer)
+    else server already stopped
+        McSteve <-- "AWS EC2 API": responseState("stopped")
+        DiscordGuild <- McSteve: reply(serverAlreadyStopped)
+    else unexpected EC2 response
+        McSteve <-- "AWS EC2 API": responseState(<other>)
+        DiscordGuild <- McSteve: reply(couldNotStopServer)
+    else error from EC2
+        McSteve <-- "AWS EC2 API": ERROR
+        DiscordGuild <- McSteve: reply(technicalProblem)
+    end
+else false (not allowed)
+    DiscordGuild <- McSteve: reply(cmdNotAllowed)
+end
+@enduml
