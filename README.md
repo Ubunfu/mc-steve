@@ -52,6 +52,7 @@ To work properly, Minecraft Steve needs to be configured with the following envi
 * `SERVICE_WALLET_CHARGE_URL`: The URL of the [Mc-Wallet](https://github.com/Ubunfu/mc-wallet) charge service.
 * `SERVICE_USERS_GET_USER_URL`: The URL of the [Mc-User](https://github.com/Ubunfu/mc-user) Get User service.
 * `SERVICE_XP_QUERY_URL`: The URL of the [mc-xp-bank](https://github.com/Ubunfu/mc-xp-bank) Query XP service.
+* `SERVICE_XP_DEPOSIT_URL`: The URL of the [mc-xp-bank](https://github.com/Ubunfu/mc-xp-bank) Deposit XP service.
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
