@@ -51,6 +51,7 @@ To work properly, Minecraft Steve needs to be configured with the following envi
 * `SERVICE_WALLET_PAY_URL`: The URL of the [Mc-Wallet](https://github.com/Ubunfu/mc-wallet) pay service.
 * `SERVICE_WALLET_CHARGE_URL`: The URL of the [Mc-Wallet](https://github.com/Ubunfu/mc-wallet) charge service.
 * `SERVICE_USERS_GET_USER_URL`: The URL of the [Mc-User](https://github.com/Ubunfu/mc-user) Get User service.
+* `SERVICE_XP_QUERY_URL`: The URL of the [mc-xp-bank](https://github.com/Ubunfu/mc-xp-bank) Query XP service.
 
 > If `SERVER_KEY_ID` and `SERVER_SEC_KEY` are not configured, it is assumed that the bot is running in an AWS environment that has been granted the IAM role to execute EC2 API commands programmatically.
 
@@ -70,6 +71,11 @@ Minecraft Steve can be called upon for help (or a snappy remark) by @mentioning 
 * `buy <quantity> <itemName>`: Purchase items for a player by charging their wallet and adding the item(s) to their in-game inventory
 * `sell <quantity> <itemName>`: Sell items for a player by attempting to remove the item(s) from their in-game inventory and charging their wallet for the items which were removed
 * `pay <username> <amount>`: Pay another player money from your wallet 
+* `xp query <username>`: Check the instantaneous quantity of XP points held by a logged-in player
+* `xp balance <username>`: Check how many XP points a player has in their XP bank 
+* `xp deposit <points>`: Deposit a quantity of your held XP points into your XP bank
+* `xp withdraw <points>`: Withdraw a quantity of XP points from your XP bank to your player
+* `xp transfer <username> <points>`: Transfer a quantity of XP points from your XP bank to another player's XP bank 
 * `help`: Responds with the currently supported list of commands
 
 ## Build and run locally

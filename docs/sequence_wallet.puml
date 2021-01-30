@@ -1,0 +1,25 @@
+@startuml sequence_wallet
+
+title Sequence: Check Wallet
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve wallet <mcUsername>
+DiscordGuild -> McSteve: sendEvent(message)
+McSteve -> McWallet: GET /wallet (mcUsername)
+alt wallet returned
+    McSteve <-- McWallet: HTTP 200 (wallet)
+    DiscordGuild <- McSteve: reply(playerWalletBalance)
+else failure
+    McSteve <-- McWallet: HTTP 4xx/5xx (error)
+    DiscordGuild <- McSteve: reply(failure: error)
+end
+@enduml

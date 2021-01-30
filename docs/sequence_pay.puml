@@ -1,0 +1,47 @@
+@startuml sequence_pay
+
+title Sequence: Pay Player
+
+actor GuildMember
+collections DiscordGuild
+collections McSteve
+collections McUser
+collections McShop
+collections McWallet
+collections GameServer
+collections "AWS EC2 API"
+collections "Fandom Wiki API"
+
+GuildMember -> DiscordGuild: @Steve pay <payeeMcUsername> <amount>
+DiscordGuild -> McSteve: sendEvent(message)
+
+McSteve -> McUser: GET /user (message.author.username)
+alt user found
+    McSteve <-- McUser: user
+else user not found
+    McSteve <-- McUser: HTTP 404
+    DiscordGuild <- McSteve: reply(userNotFound)
+else error
+    McSteve <-- McUser: HTTP 4xx/5xx
+    DiscordGuild <- McSteve: reply(errorTryAgain)
+end
+
+McSteve -> McWallet: POST /charge (payerMcUsername, quantity)
+alt charge successful
+    McSteve <-- McWallet: HTTP 200
+else failure
+    McSteve <-- McWallet: HTTP 4xx/5xx
+    DiscordGuild <- McSteve: reply(chargeFailed)
+end
+
+McSteve -> McWallet: POST /pay (payeeMcUsername, quantity)
+alt charge successful
+    McSteve <-- McWallet: HTTP 200
+else failure
+    McSteve <-- McWallet: HTTP 4xx/5xx
+    DiscordGuild <- McSteve: reply(paymentFailed)
+end
+
+DiscordGuild <- McSteve: reply(transferSuccessful)
+
+@enduml

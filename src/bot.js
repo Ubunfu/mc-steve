@@ -5,6 +5,7 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const botUtils = require('./utils/botUtils.js');
 const botCommands = require('./commands/botCommands.js');
+const xpQueryHandler = require('./handler/xpQueryHandler.js')
 
 async function handleMention(msg) {
     console.log(`[${new Date().toISOString()}][${msg.author.username}]: \'${msg.content}\'`);
@@ -29,6 +30,8 @@ async function handleMention(msg) {
         await botCommands.sellItem(msg);
     } else if (msg.content.match(/^pay (\w+)/)) {
         await botCommands.payPlayer(msg);
+    } else if (msg.content.match(/^xp query (\w+)/)) {
+        await xpQueryHandler.handle(msg)
     } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }
