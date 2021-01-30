@@ -3,7 +3,7 @@ This project attempts to conform to [SemVer](https://semver.org/) guidelines whe
 
 ## [v2.2.0]
 * [Adding UML sequence diagrams](https://github.com/Ubunfu/mc-steve/pull/50)
-* [Adding XP banking commands](https://github.com/Ubunfu/mc-steve/pull/51)
+* [Adding XP query command](https://github.com/Ubunfu/mc-steve/pull/51)
 
 ## [v2.1.0]
 * [Allow player2player payments](https://github.com/Ubunfu/mc-steve/pull/48)
