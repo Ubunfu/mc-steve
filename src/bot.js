@@ -6,6 +6,7 @@ const client = new Discord.Client();
 const botUtils = require('./utils/botUtils.js');
 const botCommands = require('./commands/botCommands.js');
 const xpQueryHandler = require('./handler/xpQueryHandler.js')
+const xpDepositHandler = require('./handler/xpDepositHandler')
 
 async function handleMention(msg) {
     console.log(`[${new Date().toISOString()}][${msg.author.username}]: \'${msg.content}\'`);
@@ -32,6 +33,8 @@ async function handleMention(msg) {
         await botCommands.payPlayer(msg);
     } else if (msg.content.match(/^xp query (\w+)/)) {
         await xpQueryHandler.handle(msg)
+    } else if (msg.content.match(/^xp deposit (\S+)/)) {
+        await xpDepositHandler.handle(msg)
     } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }
