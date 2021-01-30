@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v2.3.0]
+* [Adding XP deposit command](https://github.com/Ubunfu/mc-steve/pull/53)
+
 ## [v2.2.0]
 * [Adding UML sequence diagrams](https://github.com/Ubunfu/mc-steve/pull/50)
 * [Adding XP query command](https://github.com/Ubunfu/mc-steve/pull/51)

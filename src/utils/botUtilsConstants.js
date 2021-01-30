@@ -25,6 +25,8 @@ const HELP_MESSAGE = 'This is what I can do: \n'
     + '* `buy <quantity> <itemName>`: I\'ll buy you items from the Shop\n'
     + '* `sell <quantity> <itemName>`: I\'ll sell your items to the Shop\n'
     + '* `pay <username> <amount>`: I\'ll pay another player from your wallet\n'
+    + '* `xp query <username>`: I\'ll tell you how much XP a player has\n'
+    + '* `xp deposit <amount>`: I\'ll deposit your XP points into your XP bank\n'
     + '* `help`: Show this help, since as it stands you can\'t do anything for yourself';
 
 const EMPTY_SEARCH_RESULTS_MESSAGE = "No results!";
