@@ -3,6 +3,7 @@ This project attempts to conform to [SemVer](https://semver.org/) guidelines whe
 
 ## [v2.4.0]
 * [Adding XP withdraw command](https://github.com/Ubunfu/mc-steve/pull/55)
+* [Adding XP balance check command](https://github.com/Ubunfu/mc-steve/pull/56)
 
 ## [v2.3.0]
 * [Adding XP deposit command](https://github.com/Ubunfu/mc-steve/pull/53)

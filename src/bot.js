@@ -8,6 +8,7 @@ const botCommands = require('./commands/botCommands.js');
 const xpQueryHandler = require('./handler/xpQueryHandler.js')
 const xpDepositHandler = require('./handler/xpDepositHandler')
 const xpWithdrawHandler = require('./handler/xpWithdrawHandler')
+const xpBalanceHandler = require('./handler/xpBalanceHandler')
 
 async function handleMention(msg) {
     console.log(`[${new Date().toISOString()}][${msg.author.username}]: \'${msg.content}\'`);
@@ -38,6 +39,8 @@ async function handleMention(msg) {
         await xpDepositHandler.handle(msg)
     } else if (msg.content.match(/^xp withdraw (\S+)/)) {
         await xpWithdrawHandler.handle(msg)
+    } else if (msg.content.match(/^xp balance (\S+)/)) {
+        await xpBalanceHandler.handle(msg)
     } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }
