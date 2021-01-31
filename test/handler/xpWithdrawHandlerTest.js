@@ -70,9 +70,9 @@ describe('XP Withdraw Handler Test', function() {
     describe('When withdraw service throws player not found error', function() {
         it('Replies with player not found', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
-            .returns({
-                minecraftUsername: USER_NAME
-            })
+                .returns({
+                    minecraftUsername: USER_NAME
+                })
             const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp")
                 .throws('', 'user not found')
             await xpWithdrawHandler.handle(message)
@@ -85,9 +85,9 @@ describe('XP Withdraw Handler Test', function() {
     describe('When withdraw service throws unexpected error', function() {
         it('Replies with error details', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
-            .returns({
-                minecraftUsername: USER_NAME
-            })
+                .returns({
+                    minecraftUsername: USER_NAME
+                })
             const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp").throws({
                     response: {
                         status: 500,
@@ -107,9 +107,9 @@ describe('XP Withdraw Handler Test', function() {
     describe('When everything seems to work', function() {
         it('Replies with successful message', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
-            .returns({
-                minecraftUsername: USER_NAME
-            })
+                .returns({
+                    minecraftUsername: USER_NAME
+                })
             const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp")
                 .returns()
             await xpWithdrawHandler.handle(message)

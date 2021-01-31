@@ -49,14 +49,14 @@ describe('Withdraw Service Test', function() {
                     data: {}
                 }
             })
-        try {
-            await withdrawService.withdrawXp(USER_ID, XP_AMOUNT)
-            expect(true).to.be.false
-        } catch (err) {
-            expect(err).to.be.deep.equal({response: {status: 500, data:{}}})
-        } finally {
-            apiMock.restore()
-        }
+            try {
+                await withdrawService.withdrawXp(USER_ID, XP_AMOUNT)
+                expect(true).to.be.false
+            } catch (err) {
+                expect(err).to.be.deep.equal({response: {status: 500, data:{}}})
+            } finally {
+                apiMock.restore()
+            }
         })
     })
 })
