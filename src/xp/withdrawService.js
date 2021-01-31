@@ -1,16 +1,16 @@
-const axios = require('axios')
 const logger = require('../utils/logger')
+const axios = require('axios')
 
-async function depositXp(userId, amount) {
+async function withdrawXp(userId, amount) {
     const reqBody = {
         userId: userId,
         amount: amount
     }
     try {
-        logger.log(`[depositService] Request to deposit API: ${JSON.stringify(reqBody)}`)
-        await axios.post(process.env.SERVICE_XP_DEPOSIT_URL, reqBody)
+        logger.log(`[withdrawService] Request to withdraw API: ${JSON.stringify(reqBody)}`)
+        await axios.post(process.env.SERVICE_XP_WITHDRAW_URL, reqBody)
     } catch (err) {
-        logger.log(`[depositService] Error from deposit API: ${err.message} ${JSON.stringify(err.response.data)}`)
+        logger.log(`[withdrawService] Error from withdraw API: ${err.message} ${JSON.stringify(err.response.data)}`)
         await handleApiError(err)
     }
 }
@@ -25,4 +25,4 @@ async function handleApiError(err) {
     }
 }
 
-exports.depositXp = depositXp
+exports.withdrawXp = withdrawXp
