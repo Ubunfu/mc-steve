@@ -1,4 +1,5 @@
 const axios = require('axios')
+const logger = require('../../src/utils/logger')
 
 async function handle(msg) {
     let messageContent = msg.content;
@@ -12,9 +13,11 @@ async function handle(msg) {
     }
     let apiResp
     try {
+        logger.log(`[xpQueryHandler] Looking up current XP held by ${userName}`)
         apiResp = await axios.get(process.env.SERVICE_XP_QUERY_URL, reqParams)
         msg.reply(`${apiResp.data.userId} currently holds ${apiResp.data.amount} XP points`)
     } catch (err) {
+        logger.log(`[xpQueryHandler] Error from xp query service: ${err.message}`)
         await handleXpQueryError(err, msg, userName)
     }
 }
