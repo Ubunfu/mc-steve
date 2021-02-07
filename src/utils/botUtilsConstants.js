@@ -29,6 +29,7 @@ const HELP_MESSAGE = 'This is what I can do: \n'
     + '* `xp deposit <amount>`: I\'ll deposit your XP points into your XP bank\n'
     + '* `xp withdraw <amount>`: I\'ll withdraw your XP points from your XP bank\n'
     + '* `xp balance <username>`: I\'ll check your XP bank balance\n'
+    + '* `xp transfer <username> <points>`: I\'ll transfer your XP points to another account\n'
     + '* `help`: Show this help, since as it stands you can\'t do anything for yourself';
 
 const EMPTY_SEARCH_RESULTS_MESSAGE = "No results!";
