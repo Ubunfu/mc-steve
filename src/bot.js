@@ -9,6 +9,7 @@ const xpQueryHandler = require('./handler/xpQueryHandler.js')
 const xpDepositHandler = require('./handler/xpDepositHandler')
 const xpWithdrawHandler = require('./handler/xpWithdrawHandler')
 const xpBalanceHandler = require('./handler/xpBalanceHandler')
+const xpTransferHandler = require('./handler/xpTransferHandler')
 
 async function handleMention(msg) {
     console.log(`[${new Date().toISOString()}][${msg.author.username}]: \'${msg.content}\'`);
@@ -41,6 +42,8 @@ async function handleMention(msg) {
         await xpWithdrawHandler.handle(msg)
     } else if (msg.content.match(/^xp balance (\S+)/)) {
         await xpBalanceHandler.handle(msg)
+    } else if (msg.content.match(/^xp transfer (\S+)/)) {
+        await xpTransferHandler.handle(msg)
     } else {
         msg.reply(await botUtils.getUnknownCommandReply());
     }

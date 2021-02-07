@@ -1,17 +1,17 @@
+const sinon = require('sinon')
 const discord = require('discord.js')
 const expect = require('chai').expect
-const sinon = require('sinon')
-const xpWithdrawHandler = require('../../src/handler/xpWithdrawHandler.js')
-const userService = require('../../src/user/userService.js')
-const withdrawService = require('../../src/xp/withdrawService')
+const xpTransferHandler = require('../../src/handler/xpTransferHandler')
+const userService = require('../../src/user/userService')
+const transferService = require('../../src/xp/transferService')
 
 const USER_NAME = 'player1'
 const XP_AMOUNT = 1000
 
-describe('XP Withdraw Handler Test', function() {
+describe('XP Transfer Handler Test', function() {
     let replyStub
     let message = new discord.Message()
-    message.content = `xp withdraw ${XP_AMOUNT}`
+    message.content = `xp transfer ${USER_NAME} ${XP_AMOUNT}`
     message.author = {
         username: USER_NAME
     }
@@ -28,7 +28,7 @@ describe('XP Withdraw Handler Test', function() {
         it('Replies with you need to register message', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
                 .throws('', 'user not found')
-            await xpWithdrawHandler.handle(message)
+            await xpTransferHandler.handle(message)
             expect(replyStub.calledOnce).to.be.true
             expect(replyStub.lastCall.args[0]).to.be.equal('I didn\'t find a Minecraft username associated with your Discord '
                 + 'handle.  One must be registered before you can use the XP bank.')
@@ -46,49 +46,34 @@ describe('XP Withdraw Handler Test', function() {
                         }
                     }
                 })
-            await xpWithdrawHandler.handle(message)
+            await xpTransferHandler.handle(message)
             expect(replyStub.calledOnce).to.be.true
             expect(replyStub.lastCall.args[0]).to.be.equal('I wasn\'t able to look up your Minecraft username: HTTP 500 `{"error":"error","errorDetail":"errorDetail"}`')
             userServiceMock.restore()
         })
     })
-    describe('When withdraw service throws insufficient funds error', function() {
+    describe('When transfer service throws insufficient funds error', function() {
         it('Replies with insufficient funds message', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
                 .returns({
                     minecraftUser: USER_NAME
                 })
-            const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp")
+            const transferServiceMock = sinon.stub(transferService, "transferXp")
                 .throws('', 'insufficient funds')
-            await xpWithdrawHandler.handle(message)
+            await xpTransferHandler.handle(message)
             expect(replyStub.calledOnce).to.be.true
-            expect(replyStub.lastCall.args[0]).to.be.equal('You don\'t have enough XP to make that withdraw')
-            withdrawServiceMock.restore()
+            expect(replyStub.lastCall.args[0]).to.be.equal('You don\'t have enough XP to make that transfer')
+            transferServiceMock.restore()
             userServiceMock.restore()
         })
     })
-    describe('When withdraw service throws player not found error', function() {
-        it('Replies with player not found', async function() {
-            const userServiceMock = sinon.stub(userService, "getUser")
-                .returns({
-                    minecraftUser: USER_NAME
-                })
-            const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp")
-                .throws('', 'user not found')
-            await xpWithdrawHandler.handle(message)
-            expect(replyStub.calledOnce).to.be.true
-            expect(replyStub.lastCall.args[0]).to.be.equal('You don\'t appear to be online at the moment.  Log in to make your withdraw.')
-            withdrawServiceMock.restore()
-            userServiceMock.restore()
-        })
-    })
-    describe('When withdraw service throws unexpected error', function() {
+    describe('When transfer service throws unexpected error', function() {
         it('Replies with error details', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
-                .returns({
-                    minecraftUser: USER_NAME
-                })
-            const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp").throws({
+            .returns({
+                minecraftUser: USER_NAME
+            })
+            const transferServiceMock = sinon.stub(transferService, "transferXp").throws({
                     response: {
                         status: 500,
                         data: {
@@ -97,25 +82,25 @@ describe('XP Withdraw Handler Test', function() {
                         }
                     }
                 })
-            await xpWithdrawHandler.handle(message)
+            await xpTransferHandler.handle(message)
             expect(replyStub.calledOnce).to.be.true
-            expect(replyStub.lastCall.args[0]).to.be.equal('Not able to process the withdraw at the moment: HTTP 500 `{"error":"error","errorDetail":"errorDetail"}`')
-            withdrawServiceMock.restore()
+            expect(replyStub.lastCall.args[0]).to.be.equal('Not able to process the transfer at the moment: HTTP 500 `{"error":"error","errorDetail":"errorDetail"}`')
+            transferServiceMock.restore()
             userServiceMock.restore()
         })
     })
     describe('When everything seems to work', function() {
         it('Replies with successful message', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
-                .returns({
-                    minecraftUser: USER_NAME
-                })
-            const withdrawServiceMock = sinon.stub(withdrawService, "withdrawXp")
+            .returns({
+                minecraftUser: USER_NAME
+            })
+            const transferServiceMock = sinon.stub(transferService, "transferXp")
                 .returns()
-            await xpWithdrawHandler.handle(message)
+            await xpTransferHandler.handle(message)
             expect(replyStub.calledOnce).to.be.true
-            expect(replyStub.lastCall.args[0]).to.be.equal(`Withdrew ${XP_AMOUNT} XP from your XP bank`)
-            withdrawServiceMock.restore()
+            expect(replyStub.lastCall.args[0]).to.be.equal(`Transferred ${XP_AMOUNT} XP to ${USER_NAME}\'s bank`)
+            transferServiceMock.restore()
             userServiceMock.restore()
         })
     })
