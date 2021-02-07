@@ -1,6 +1,9 @@
 # Changelog
 This project attempts to conform to [SemVer](https://semver.org/) guidelines whenever possible.
 
+## [v2.5.0]
+* [Adding XP transfer command](https://github.com/Ubunfu/mc-steve/pull/58)
+
 ## [v2.4.0]
 * [Adding XP withdraw command](https://github.com/Ubunfu/mc-steve/pull/55)
 * [Adding XP balance check command](https://github.com/Ubunfu/mc-steve/pull/56)

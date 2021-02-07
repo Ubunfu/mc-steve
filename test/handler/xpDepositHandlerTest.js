@@ -56,7 +56,7 @@ describe('XP Deposit Handler Test', function() {
         it('Replies with insufficient funds message', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
                 .returns({
-                    minecraftUsername: USER_NAME
+                    minecraftUser: USER_NAME
                 })
             const depositServiceMock = sinon.stub(depositService, "depositXp")
                 .throws('', 'insufficient funds')
@@ -71,7 +71,7 @@ describe('XP Deposit Handler Test', function() {
         it('Replies with player not found', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
             .returns({
-                minecraftUsername: USER_NAME
+                minecraftUser: USER_NAME
             })
             const depositServiceMock = sinon.stub(depositService, "depositXp")
                 .throws('', 'user not found')
@@ -86,7 +86,7 @@ describe('XP Deposit Handler Test', function() {
         it('Replies with error details', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
             .returns({
-                minecraftUsername: USER_NAME
+                minecraftUser: USER_NAME
             })
             const depositServiceMock = sinon.stub(depositService, "depositXp").throws({
                     response: {
@@ -108,7 +108,7 @@ describe('XP Deposit Handler Test', function() {
         it('Replies with successful message', async function() {
             const userServiceMock = sinon.stub(userService, "getUser")
             .returns({
-                minecraftUsername: USER_NAME
+                minecraftUser: USER_NAME
             })
             const depositServiceMock = sinon.stub(depositService, "depositXp")
                 .returns()
